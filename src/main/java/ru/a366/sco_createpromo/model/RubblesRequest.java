@@ -1,0 +1,222 @@
+package ru.a366.sco_createpromo.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import org.springframework.validation.annotation.Validated;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+@Getter
+@Validated
+public class RubblesRequest {
+    @JsonProperty("using_pos_gr")
+    @NotBlank
+    private String usingPosGr;
+
+    @JsonProperty("using_itm_gr")
+    @NotBlank
+    private String usingItmGr;
+
+    @JsonProperty("prompt_flg")
+    @NotNull
+    private Boolean promptFlg;
+
+    @JsonProperty("promo_name")
+    @NotBlank
+    private String promoName;
+
+    @JsonProperty("sco_template_num")
+    @NotNull
+    private Long scoTemplateNum;
+
+    @JsonProperty("sco_template_cd")
+    @NotBlank
+    private String scoTemplateCd;
+
+    @JsonProperty("about_promo")
+    @NotBlank
+    private String aboutPromo;
+
+    @JsonProperty("discount_counter")
+    @NotNull
+    private Long discountCounter;
+
+    @JsonProperty("start_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
+    @JsonProperty("end_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
+
+    @JsonProperty("start_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime startTime;
+
+    @JsonProperty("end_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    private LocalTime endTime;
+
+    @JsonProperty("days_until_start")
+    private Long daysUntilStart;
+
+    @JsonProperty("days_until_end")
+    private Long daysUntilEnd;
+
+    @JsonProperty("weekday_action")
+    private String weekdayAction; // уточнить
+
+    @JsonProperty("discount_owner")
+    @NotBlank
+    private String discountOwner;
+
+    @JsonProperty("promo_explation")
+    private String promoExplation;
+
+    @JsonProperty("srn_flg")
+    private Boolean srnFlg;
+
+    @JsonProperty("report_flg")
+    @NotNull
+    private Boolean reportFlg;
+
+    @JsonProperty("date_start_sr")
+    private LocalDate dateStartSr;
+
+    @JsonProperty("date_end_sr")
+    private LocalDate dateEndSr;
+
+    @JsonProperty("dis_online_order_flg")
+    private Boolean disOnlineOrderFlg;
+
+    @JsonProperty("dis_online_reserve_flg")
+    private Boolean disOnlineReserveFlg;
+
+    @JsonProperty("discount_option")
+    private String discountOption;
+
+    @JsonProperty("min_item_count")
+    private Long minItemCount;
+
+    @JsonProperty("item_count")
+    private Long itemCount;
+
+    @JsonProperty("item_ind_count")
+    private Long itemIndCount;
+
+    @JsonProperty("item_count_ind2")
+    private Long itemCountInd2;
+
+    @JsonProperty("ind_option")
+    private String indOption;
+
+    @JsonProperty("discount_type")
+    private String discountType;
+
+    @JsonProperty("discount_value")
+    private Long discountValue;
+
+    @JsonProperty("prize_count")
+    private Long prizeCount;
+
+    @JsonProperty("prize_max_count")
+    private Long prizeMaxCount;
+
+    @JsonProperty("sum_online_order_flg")
+    private Boolean sumOnlineOrderFlg;
+
+    @JsonProperty("sum_online_reserve_flg")
+    private Boolean sumOnlineReserveFlg;
+
+    @JsonProperty("sum_online_ved_flg")
+    private Boolean sumOnlineVedFlg;
+
+    @JsonProperty("dis_online_ved_flg")
+    private Boolean disOnlineVedFlg;
+
+    @JsonProperty("old_dis_in_flg")
+    private Boolean oldDisInFlg;
+
+    @JsonProperty("fract_pac_flg")
+    private Boolean fractPacFlg;
+
+    @JsonProperty("promo_online_order_flg")
+    private Boolean promoOnlineOrderFlg;
+
+    @JsonProperty("promo_online_reserve_flg")
+    private Boolean promoOnlineReserveFlg;
+
+    @JsonProperty("min_sum1")
+    private Long minSum1;
+
+    @JsonProperty("min_sum2")
+    private Long minSum2;
+
+    @JsonProperty("min_sum3")
+    private Long minSum3;
+
+    @JsonProperty("discount_type1")
+    private String discountType1;
+
+    @JsonProperty("discount_type2")
+    private String discountType2;
+
+    @JsonProperty("discount_type3")
+    private String discountType3;
+
+    @JsonProperty("discount_value1")
+    private Long discountValue1;
+
+    @JsonProperty("discount_value2")
+    private Long discountValue2;
+
+    @JsonProperty("discount_value3")
+    private Long discountValue3;
+
+    @JsonProperty("sco_and_or1")
+    private String scoAndOr1;
+
+    @JsonProperty("sco_and_or2")
+    private String scoAndOr2;
+
+    @JsonProperty("sco_and_or3")
+    private String scoAndOr3;
+
+    @JsonProperty("item_count1")
+    private Long itemCount1;
+
+    @JsonProperty("item_count2")
+    private Long itemCount2;
+
+    @JsonProperty("item_count3")
+    private Long itemCount3;
+
+    @JsonProperty("items")
+    private List<String> items;
+
+    @JsonProperty("pos")
+    private List<String> pos;
+
+    @JsonProperty("pos_gr_id")
+    private Long posGrId;
+
+    @JsonProperty("itm_gr_id")
+    private Long itmGrId;
+
+    @JsonProperty("itm_gr_id_ind")
+    private Long itmGrIdInd;
+
+    @JsonProperty("itm_gr_id_prize")
+    private Long itmGrIdPrize;
+
+    @JsonProperty("itm_gr_id_exp")
+    private Long itmGrIdExp;
+
+    @JsonProperty("itm_gr_type")
+    private String itmGrType;
+}
