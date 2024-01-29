@@ -21,6 +21,8 @@ public class ErrorHandler {
         private final String desc;
     }
 
+    private final String header = "Internal error, please contact administrator. ";
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleValidationExceptions(
@@ -32,7 +34,7 @@ public class ErrorHandler {
         });
         sb.setLength(sb.length() - 2);
         log.error(sb.toString());
-        return new ApiError("error", sb.toString());
+        return new ApiError("error", header + sb.toString());
     }
 
     @ExceptionHandler(RubblesDataException.class)
@@ -40,15 +42,15 @@ public class ErrorHandler {
     public ApiError handleRubblesDataException(
             RubblesDataException e) {
         log.error(e.getMessage());
-        return new ApiError("error", e.getMessage());
+        return new ApiError("error", header + e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleException(
             Exception e) {
         log.error(e.getMessage(), e);
-        return new ApiError("error", e.getMessage());
+        return new ApiError("error", header + e.getMessage());
     }
 
 }

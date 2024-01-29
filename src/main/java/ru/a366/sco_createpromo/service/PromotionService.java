@@ -53,11 +53,10 @@ public class PromotionService {
                                         response.getPromoId(),
                                         request.getPromoName()
                                 ));
-                    } else {
+                    }  else {
                         throw new RubblesDataException(response.getErrorText());
                     }
                 }
-                break;
             } catch (Exception e) {
                 log.error("Attempt " + retryNum + ": Could not connect to url: " +
                         url + "\nError: " + e.getMessage(), e);
@@ -69,7 +68,7 @@ public class PromotionService {
         } while (retryNum <= RETRY_COUNT);
 
         if (response == null) {
-            throw new RuntimeException("Error connecting to SCO");
+            throw new RuntimeException("HTTP error was received from SmartCheckout");
         }
 
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
