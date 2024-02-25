@@ -28,11 +28,11 @@ public class DbAdapter {
     @Value("${db.tables.rb-item-groups}")
     private String RB_ITEM_GROUPS;
 
-    @Value("${db.tables.int-item-list-rb}")
+    @Value("${db.tables.rb-pos-groups}")
     private String RB_POS_GROUPS;
 
-    @Value("${db.tables.int-item-list-rb}")
-    private String INT_ITEM_LIST_RB;
+    @Value("${db.tables.int-rb-item-list}")
+    private String INT_RB_ITEM_LIST;
 
     @Value("${db.tables.int-post-of-sales-rb}")
     private String INT_POST_OF_SALES_RB;
@@ -48,22 +48,9 @@ public class DbAdapter {
     @Qualifier("cdmDbService")
     private DbService cdmDbService;
 
-    private List<Map<String, Object>> getPosGrIdSeq() throws Exception{
-        try {
-            log.info("Getting RB_ITM_GR_ID list from the sequence");
-            return cdmDbService
-                    .select("SELECT nextval('POS_GR_ID_SEQ') as POS_GR_ID_SEQ from generate_series(1,1);",
-                            (Map<String, Object>) null);
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Error getting POS_GR_ID_SEQ list: " + e.getMessage());
-        }
-    }
-
     private List<Map<String, Object>> getItemGrIdSeq() throws Exception{
         try {
-            log.info("Getting RB_ITM_GR_ID list from the sequence");
+            log.info("Getting ITEM_GR_ID_SEQ  list from the sequence");
             return cdmDbService
                     .select("SELECT nextval('ITEM_GR_ID_SEQ') as ITEM_GR_ID_SEQ from generate_series(1,1);",
                             (Map<String, Object>) null);
@@ -74,11 +61,24 @@ public class DbAdapter {
         }
     }
 
+    private List<Map<String, Object>> getPosGrIdSeq() throws Exception{
+        try {
+            log.info("Getting POS_GR_ID_SEQ  list from the sequence");
+            return cdmDbService
+                    .select("SELECT nextval('POS_GR_ID_SEQ') as POS_GR_ID_SEQ from generate_series(1,1);",
+                            (Map<String, Object>) null);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Error getting POS_GR_ID_SEQ list: " + e.getMessage());
+        }
+    }
+
     private List<Map<String, Object>> getSeqIntItemId() throws Exception{
         try {
-            log.info("Getting SEQ_INT_ITEM_ID list from the sequence");
-            return cdmDbService
-                    .select("SELECT nextval('SEQ_INT_ITEM_ID') as SEQ_INT_ITEM_ID from generate_series(1,1);",
+            log.info("Getting INT_ITEM_ID_SEQ list from the sequence");
+            return intDbService
+                    .select("SELECT nextval('INT_ITEM_ID_SEQ') as INT_ITEM_ID_SEQ from generate_series(1,1);",
                             (Map<String, Object>) null);
         }
         catch (Exception e)
@@ -89,14 +89,14 @@ public class DbAdapter {
 
     private List<Map<String, Object>> getSeqIntPosId() throws Exception{
         try {
-            log.info("Getting SEQ_INT_POS_ID list from the sequence");
-            return cdmDbService
-                    .select("SELECT nextval('SEQ_INT_POS_ID') as SEQ_INT_POS_ID from generate_series(1,1);",
+            log.info("Getting INT_POS_ID_SEQ list from the sequence");
+            return intDbService
+                    .select("SELECT nextval('INT_POS_ID_SEQ') as INT_POS_ID_SEQ from generate_series(1,1);",
                             (Map<String, Object>) null);
         }
         catch (Exception e)
         {
-            throw new Exception("Error getting SEQ_INT_POS_ID list: " + e.getMessage());
+            throw new Exception("Error getting INT_POS_ID_SEQ list: " + e.getMessage());
         }
     }
 
@@ -113,7 +113,7 @@ public class DbAdapter {
     private void insertIntoRbItemGroups(RubblesRequest request, ScoResponse response) throws Exception {
         List<Query> queries = QueryMapper.toRbItemGroups(request, response,
                 (Long) getItemGrIdSeq().get(0).get("ITEM_GR_ID_SEQ"),
-                (Long) getSeqIntItemId().get(0).get("SEQ_INT_ITEM_ID"));
+                (Long) getSeqIntItemId().get(0).get("INT_ITEM_ID_SEQ"));
         try {
             log.info("Inserting into " + RB_ITEM_GROUPS);
             cdmDbService.simpleBatchInsert(RB_ITEM_GROUPS, queries, queries.size());
@@ -121,10 +121,10 @@ public class DbAdapter {
             throw new Exception("Error inserting into table "+ RB_ITEM_GROUPS +": "+ e);
         }
         try {
-            log.info("Inserting into " + INT_ITEM_LIST_RB);
-            intDbService.simpleBatchInsert(INT_ITEM_LIST_RB, queries, queries.size());
+            log.info("Inserting into " + INT_RB_ITEM_LIST);
+            intDbService.simpleBatchInsert(INT_RB_ITEM_LIST, queries, queries.size());
         } catch (Exception e) {
-            throw new Exception("Error inserting into table "+ INT_ITEM_LIST_RB +": "+ e);
+            throw new Exception("Error inserting into table "+ INT_RB_ITEM_LIST +": "+ e);
         }
     }
 

@@ -14,7 +14,6 @@ import java.time.LocalTime;
 @Builder
 public class RbPromoAcrmQuery implements Query {
     @JsonProperty("promo_id")
-    @NotBlank
     private Long promoId;
 
     @JsonProperty("promo_name")
@@ -45,33 +44,33 @@ public class RbPromoAcrmQuery implements Query {
     private String promoExplation;
 
     @JsonProperty("sum_online_order_flg")
-    private Long sumOnlineOrderFlg;
+    private Boolean sumOnlineOrderFlg;
 
     @JsonProperty("dis_online_order_flg")
     @NotNull
-    private Long disOnlineOrderFlg;
+    private Boolean disOnlineOrderFlg;
 
     @JsonProperty("sum_online_reserve_flg")
-    private Long sumOnlineReserveFlg;
+    private Boolean sumOnlineReserveFlg;
 
     @JsonProperty("dis_online_reserve_flg")
     @NotNull
-    private Long disOnlineReserveFlg;
+    private Boolean disOnlineReserveFlg;
 
     @JsonProperty("sum_online_ved_flg")
-    private Long sumOnlineVedFlg;
+    private Boolean sumOnlineVedFlg;
 
     @JsonProperty("dis_online_ved_flg")
-    private Long disOnlineVedFlg;
+    private Boolean disOnlineVedFlg;
 
     @JsonProperty("old_dis_in_flg")
-    private Long oldDisInFlg;
+    private Boolean oldDisInFlg;
 
     @JsonProperty("fract_pac_flg")
-    private Long fractPacFlg;
+    private Boolean fractPacFlg;
 
     @JsonProperty("discount_option")
-    private String discountOption;
+    private Integer discountOption;
 
     @JsonProperty("min_item_count")
     private Long minItemCount;
@@ -86,7 +85,7 @@ public class RbPromoAcrmQuery implements Query {
     private Long itemCountInd2;
 
     @JsonProperty("ind_option")
-    private String indOption;
+    private Integer indOption;
 
     @JsonProperty("discount_type")
     private String discountType;
@@ -101,17 +100,17 @@ public class RbPromoAcrmQuery implements Query {
     private Long prizeMaxCount;
 
     @JsonProperty("promo_online_order_flg")
-    private Long promoOnlineOrderFlg;
+    private Boolean promoOnlineOrderFlg;
 
     @JsonProperty("promo_online_reserve_flg")
-    private Long promoOnlineReserveFlg;
+    private Boolean promoOnlineReserveFlg;
 
     @JsonProperty("srn_flg")
-    private Long srnFlg;
+    private Boolean srnFlg;
 
     @JsonProperty("report_flg")
     @NotNull
-    private Long reportFlg;
+    private Boolean reportFlg;
 
     @JsonProperty("date_start_sr")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -139,8 +138,8 @@ public class RbPromoAcrmQuery implements Query {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime endTime;
 
-    @JsonProperty("weakday_action")
-    private String weakdayAction;
+    @JsonProperty("weekday_action")
+    private String weekdayAction;
 
     @JsonProperty("discount_type_1")
     private String discountType1;
@@ -188,5 +187,23 @@ public class RbPromoAcrmQuery implements Query {
     private Long minSum3;
 
     @JsonProperty("sco_upload_flg")
-    private int scoUploadFlg;
+    private Boolean scoUploadFlg;
+
+    @JsonProperty("platform_promo_id")
+    private Long platformPromoId;
+
+    @JsonProperty("status_dttm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDate statusDttm;
+
+    @JsonProperty("int_status")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate intStatus;
+
+    @JsonProperty("error_code")
+    private String errorCode;
+
+    @JsonProperty("error_text")
+    private String errorText;
+
 }

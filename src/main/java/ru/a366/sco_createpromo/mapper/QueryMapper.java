@@ -26,26 +26,26 @@ public class QueryMapper {
                     .discountCounter(request.getDiscountCounter())
                     .discountOwner(request.getDiscountOwner())
                     .promoExplation(request.getPromoExplation())
-                    .sumOnlineVedFlg(request.getSumOnlineVedFlg() ? 1L : 0L) // Не бьется Long / Boolean
-                    .disOnlineOrderFlg(request.getDisOnlineOrderFlg() ? 1L : 0L) // Не бьется Long / Boolean
-                    .sumOnlineReserveFlg(request.getSumOnlineReserveFlg() ? 1L : 0L)
-                    .disOnlineReserveFlg(request.getDisOnlineReserveFlg() ? 1L : 0L)
-                    .oldDisInFlg(request.getOldDisInFlg() ? 1L : 0L)
-                    .fractPacFlg(request.getFractPacFlg() ? 1L : 0L)
+                    .sumOnlineVedFlg(request.getSumOnlineVedFlg())
+                    .disOnlineOrderFlg(request.getDisOnlineOrderFlg())
+                    .sumOnlineReserveFlg(request.getSumOnlineReserveFlg())
+                    .disOnlineReserveFlg(request.getDisOnlineReserveFlg())
+                    .oldDisInFlg(request.getOldDisInFlg())
+                    .fractPacFlg(request.getFractPacFlg())
                     .discountOption(request.getDiscountOption())
                     .minItemCount(request.getMinItemCount())
                     .itemCount(request.getItemCount())
                     .itemIndCount(request.getItemIndCount())
                     .itemCountInd2(request.getItemCountInd2())
-                    .indOption(request.getIndOption())
+                    .indOption(Integer.valueOf(request.getIndOption())) // TODO 15.02.24 - подбить тип поля
                     .discountType(request.getDiscountType())
                     .discountValue(request.getDiscountValue())
                     .prizeCount(request.getPrizeCount())
                     .prizeMaxCount(request.getPrizeMaxCount())
-                    .promoOnlineOrderFlg(request.getPromoOnlineOrderFlg() ? 1L : 0L)
-                    .promoOnlineReserveFlg(request.getPromoOnlineReserveFlg() ? 1L : 0L)
-                    .srnFlg(request.getSrnFlg() ? 1L : 0L)
-                    .reportFlg(request.getReportFlg() ? 1L : 0L)
+                    .promoOnlineOrderFlg(request.getPromoOnlineOrderFlg())
+                    .promoOnlineReserveFlg(request.getPromoOnlineReserveFlg())
+                    .srnFlg(request.getSrnFlg())
+                    .reportFlg(request.getReportFlg())
                     .dateStartSr(request.getDateStartSr())
                     .dateEndSr(request.getDateEndSr())
                     .minSum1(request.getMinSum1())
@@ -67,50 +67,62 @@ public class QueryMapper {
                     .endDate(request.getEndDate())
                     .startTime(request.getStartTime())
                     .endTime(request.getEndTime())
-                    .weakdayAction(request.getWeekdayAction())
+                    .weekdayAction(request.getWeekdayAction())
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
     public static List<Query> toRbItemGroups(RubblesRequest request, ScoResponse response,
-                                             Long itmGrId, Long seqIntItemId) {
+                                             Long itmGrId, Long intItemId) {
         List<Query> queries = new LinkedList<>();
-        for(String item: request.getItems()) {
-            ItemGroupsQuery rbItemGroupsQuery = new ItemGroupsQuery();
-            rbItemGroupsQuery.setItmGrId(itmGrId);
-            rbItemGroupsQuery.setItmCd(Long.valueOf(item)); // Не бьется String / Long
-            rbItemGroupsQuery.setItmGrIdInd1(request.getItmGrType().equals("ind1") ? itmGrId : null);
-            rbItemGroupsQuery.setItmGrIdInd2(request.getItmGrType().equals("ind2") ? itmGrId : null);
-            rbItemGroupsQuery.setItmGrIdPrize(request.getItmGrType().equals("prize") ? itmGrId : null);
-            rbItemGroupsQuery.setItmGrType(request.getItmGrType());
-            rbItemGroupsQuery.setIntQueryId(seqIntItemId);
-            rbItemGroupsQuery.setPromoId(response.getPromoId());
-            rbItemGroupsQuery.setIntCreateDttm(LocalDateTime.now());
-            rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
-            rbItemGroupsQuery.setIntStatus("NEW");
-            rbItemGroupsQuery.setAcrmCheckFlg(0);
-            queries.add(rbItemGroupsQuery);
-        }
+        queries.addAll(getTypes(itmGrId, intItemId, response.getPromoId(),
+                request.getArrayItmInd1(), "ind1"));
+        queries.addAll(getTypes(itmGrId, intItemId, response.getPromoId(),
+                request.getArrayItmInd2(), "ind2"));
+        queries.addAll(getTypes(itmGrId, intItemId, response.getPromoId(),
+                request.getArrayItmInd2(), "prize"));
         return queries;
     }
 
     public static List<Query> toRbPosGroups(RubblesRequest request, ScoResponse response,
-                                           Long posGrIdSeq, Long seqIntPosId) {
+                                            Long posGrId, Long intItemId) {
         List<Query> queries = new LinkedList<>();
-        for(String pos: request.getPos()) {
+        for(String pos: request.getArrayPos()) {
             PosGroupsQuery rbPosGroupQuery = new PosGroupsQuery();
-            rbPosGroupQuery.setPosGrId(posGrIdSeq);
+            rbPosGroupQuery.setPosGrId(posGrId);
             rbPosGroupQuery.setPosId(Long.valueOf(pos));
             rbPosGroupQuery.setPromoId(response.getPromoId());
             rbPosGroupQuery.setPromoCd(response.getPromoId());
-            rbPosGroupQuery.setIntQueryId(seqIntPosId);
+            rbPosGroupQuery.setIntQueryId(intItemId);
             rbPosGroupQuery.setPromoId(response.getPromoId());
             rbPosGroupQuery.setIntCreateDttm(LocalDateTime.now());
             rbPosGroupQuery.setIntUpdateDttm(LocalDateTime.now());
             rbPosGroupQuery.setIntStatus("NEW");
             rbPosGroupQuery.setAcrmCheckFlg(0);
             queries.add(rbPosGroupQuery);
+        }
+        return queries;
+    }
+
+    private static List<Query> getTypes(Long itmGrId, Long intItemId, Long promoId,
+                                        List<Long> items, String type) {
+        List<Query> queries = new LinkedList<>();
+        for(Long item: items) {
+            ItemGroupsQuery rbItemGroupsQuery = new ItemGroupsQuery();
+            rbItemGroupsQuery.setItmGrId(itmGrId);
+            rbItemGroupsQuery.setItmCd(item);
+            rbItemGroupsQuery.setItmGrIdInd1(type.equals("ind1") ? itmGrId : null);
+            rbItemGroupsQuery.setItmGrIdInd2(type.equals("ind2") ? itmGrId : null);
+            rbItemGroupsQuery.setItmGrIdPrize(type.equals("prize") ? itmGrId : null);
+            rbItemGroupsQuery.setItmGrType(type);
+            rbItemGroupsQuery.setIntQueryId(intItemId);
+            rbItemGroupsQuery.setPromoId(promoId);
+            rbItemGroupsQuery.setIntCreateDttm(LocalDateTime.now());
+            rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
+            rbItemGroupsQuery.setIntStatus("NEW");
+            rbItemGroupsQuery.setAcrmCheckFlg(0);
+            queries.add(rbItemGroupsQuery);
         }
         return queries;
     }

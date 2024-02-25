@@ -12,4 +12,7 @@ public class RubblesResponse {
 
     @JsonProperty("promotionName")
     private String promotionName;
+
+    @JsonProperty("platformPromoId")
+    private Long platformPromoId;
 }

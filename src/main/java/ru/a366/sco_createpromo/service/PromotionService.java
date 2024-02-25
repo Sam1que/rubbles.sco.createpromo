@@ -51,7 +51,8 @@ public class PromotionService {
                         return ResponseEntity.ok()
                                 .body(new RubblesResponse(
                                         response.getPromoId(),
-                                        request.getPromoName()
+                                        request.getPromoName(),
+                                        response.getPlatformPromoId()
                                 ));
                     }  else {
                         throw new RubblesDataException(response.getErrorText());

@@ -1,10 +1,12 @@
 package ru.a366.sco_createpromo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
@@ -14,13 +16,6 @@ import java.util.List;
 @Getter
 @Validated
 public class RubblesRequest {
-    @JsonProperty("using_pos_gr")
-    @NotBlank
-    private String usingPosGr;
-
-    @JsonProperty("using_itm_gr")
-    @NotBlank
-    private String usingItmGr;
 
     @JsonProperty("prompt_flg")
     @NotNull
@@ -69,7 +64,7 @@ public class RubblesRequest {
     private Long daysUntilEnd;
 
     @JsonProperty("weekday_action")
-    private String weekdayAction; // уточнить
+    private String weekdayAction;
 
     @JsonProperty("discount_owner")
     @NotBlank
@@ -98,7 +93,7 @@ public class RubblesRequest {
     private Boolean disOnlineReserveFlg;
 
     @JsonProperty("discount_option")
-    private String discountOption;
+    private Integer discountOption;
 
     @JsonProperty("min_item_count")
     private Long minItemCount;
@@ -196,27 +191,19 @@ public class RubblesRequest {
     @JsonProperty("item_count3")
     private Long itemCount3;
 
-    @JsonProperty("items")
-    private List<String> items;
+    @JsonProperty("array_itm_ind1")
+    private List<Long> arrayItmInd1;
 
-    @JsonProperty("pos")
-    private List<String> pos;
+    @JsonProperty("array_itm_ind2")
+    private List<Long> arrayItmInd2;
 
-    @JsonProperty("pos_gr_id")
-    private Long posGrId;
+    @JsonProperty("array_itm_prize")
+    private List<Long> arrayItmPrize;
 
-    @JsonProperty("itm_gr_id")
-    private Long itmGrId;
+    @JsonProperty("array_itm_exp")
+    private List<Long> arrayItmExp;
 
-    @JsonProperty("itm_gr_id_ind")
-    private Long itmGrIdInd;
+    @JsonProperty("array_pos")
+    private List<String> arrayPos;
 
-    @JsonProperty("itm_gr_id_prize")
-    private Long itmGrIdPrize;
-
-    @JsonProperty("itm_gr_id_exp")
-    private Long itmGrIdExp;
-
-    @JsonProperty("itm_gr_type")
-    private String itmGrType;
 }

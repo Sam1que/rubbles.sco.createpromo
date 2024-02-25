@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.a366.sco_createpromo.db.DbAdapter;
-import ru.a366.sco_createpromo.mapper.PromotionMapper;
 import ru.a366.sco_createpromo.model.RubblesRequest;
 import ru.a366.sco_createpromo.model.ScoRequest;
 import ru.a366.sco_createpromo.model.ScoResponse;

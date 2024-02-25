@@ -17,7 +17,7 @@ db:
     rb-promo-acrm-sco: RB_PROMO_ACRM_SCO
     rb-item-groups: RB_ITEM_GROUPS
     rb-pos-groups: RB_POS_GROUPS
-    int-item-list-rb: INT_ITEM_LIST_RB
+    int-rb-item-list: INT_RB_ITEM_LIST
     int-post-of-sales-rb: INT_POINT_OF_SALES_RB
   postgres:
     batch_size: 8
