@@ -19,6 +19,10 @@ import java.util.List;
 @NoArgsConstructor
 public class ScoRequest {
 
+    @JsonProperty("prompt_flg")
+    @NotNull
+    private Boolean promptFlg;
+
     @JsonProperty("promo_name")
     @NotBlank
     private String promoName;

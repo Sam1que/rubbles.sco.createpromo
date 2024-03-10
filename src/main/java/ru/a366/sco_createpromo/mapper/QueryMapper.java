@@ -19,6 +19,7 @@ public class QueryMapper {
         try {
             return RbPromoAcrmQuery.builder()
                     .promoId(response.getPromoId())
+                    .promptFlg(request.getPromptFlg())
                     .promoName(request.getPromoName())
                     .scoTemplateNum(request.getScoTemplateNum())
                     .scoTemplateCd(request.getScoTemplateCd())
@@ -98,7 +99,7 @@ public class QueryMapper {
             rbPosGroupQuery.setPromoId(response.getPromoId());
             rbPosGroupQuery.setIntCreateDttm(LocalDateTime.now());
             rbPosGroupQuery.setIntUpdateDttm(LocalDateTime.now());
-            rbPosGroupQuery.setIntStatus("NEW");
+            rbPosGroupQuery.setIntStatus("new");
             rbPosGroupQuery.setAcrmCheckFlg(0);
             queries.add(rbPosGroupQuery);
         }
@@ -120,7 +121,7 @@ public class QueryMapper {
             rbItemGroupsQuery.setPromoId(promoId);
             rbItemGroupsQuery.setIntCreateDttm(LocalDateTime.now());
             rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
-            rbItemGroupsQuery.setIntStatus("NEW");
+            rbItemGroupsQuery.setIntStatus("new");
             rbItemGroupsQuery.setAcrmCheckFlg(0);
             queries.add(rbItemGroupsQuery);
         }

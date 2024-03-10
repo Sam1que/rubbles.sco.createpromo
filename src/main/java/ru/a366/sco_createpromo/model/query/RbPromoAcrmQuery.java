@@ -20,6 +20,9 @@ public class RbPromoAcrmQuery implements Query {
     @NotBlank
     private String promoName;
 
+    @JsonProperty("prompt_flg")
+    private Boolean promptFlg;
+
     @JsonProperty("sco_template_num")
     @NotNull
     private Long scoTemplateNum;
@@ -197,8 +200,7 @@ public class RbPromoAcrmQuery implements Query {
     private LocalDate statusDttm;
 
     @JsonProperty("int_status")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate intStatus;
+    private String intStatus;
 
     @JsonProperty("error_code")
     private String errorCode;

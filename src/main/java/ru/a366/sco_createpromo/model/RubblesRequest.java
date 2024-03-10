@@ -146,49 +146,49 @@ public class RubblesRequest {
     @JsonProperty("promo_online_reserve_flg")
     private Boolean promoOnlineReserveFlg;
 
-    @JsonProperty("min_sum1")
+    @JsonProperty("min_sum_1")
     private Long minSum1;
 
-    @JsonProperty("min_sum2")
+    @JsonProperty("min_sum_2")
     private Long minSum2;
 
-    @JsonProperty("min_sum3")
+    @JsonProperty("min_sum_3")
     private Long minSum3;
 
-    @JsonProperty("discount_type1")
+    @JsonProperty("discount_type_1")
     private String discountType1;
 
-    @JsonProperty("discount_type2")
+    @JsonProperty("discount_type_2")
     private String discountType2;
 
-    @JsonProperty("discount_type3")
+    @JsonProperty("discount_type_3")
     private String discountType3;
 
-    @JsonProperty("discount_value1")
+    @JsonProperty("discount_value_1")
     private Long discountValue1;
 
-    @JsonProperty("discount_value2")
+    @JsonProperty("discount_value_2")
     private Long discountValue2;
 
-    @JsonProperty("discount_value3")
+    @JsonProperty("discount_value_3")
     private Long discountValue3;
 
-    @JsonProperty("sco_and_or1")
+    @JsonProperty("sco_and_or_1")
     private String scoAndOr1;
 
-    @JsonProperty("sco_and_or2")
+    @JsonProperty("sco_and_or_2")
     private String scoAndOr2;
 
-    @JsonProperty("sco_and_or3")
+    @JsonProperty("sco_and_or_3")
     private String scoAndOr3;
 
-    @JsonProperty("item_count1")
+    @JsonProperty("item_count_1")
     private Long itemCount1;
 
-    @JsonProperty("item_count2")
+    @JsonProperty("item_count_2")
     private Long itemCount2;
 
-    @JsonProperty("item_count3")
+    @JsonProperty("item_count_3")
     private Long itemCount3;
 
     @JsonProperty("array_itm_ind1")
@@ -205,5 +205,4 @@ public class RubblesRequest {
 
     @JsonProperty("array_pos")
     private List<String> arrayPos;
-
 }

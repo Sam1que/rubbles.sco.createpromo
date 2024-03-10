@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class PromotionMapper {
     public static ScoRequest fromRubblesRequest(RubblesRequest rubblesRequest) {
         ScoRequest scoRequest = new ScoRequest();
+        scoRequest.setPromptFlg(rubblesRequest.getPromptFlg());
         scoRequest.setPromoName(rubblesRequest.getPromoName());
         scoRequest.setScoTemplateNum(rubblesRequest.getScoTemplateNum());
         scoRequest.setScoTemplateCd(rubblesRequest.getScoTemplateCd());
