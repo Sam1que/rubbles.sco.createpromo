@@ -1,7 +1,6 @@
 package ru.a366.sco_createpromo.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glowbyte.a366.crypt.blowfish.Encryptor;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,7 +41,7 @@ public class CdmDbConfig {
     @ConfigurationProperties(prefix = "db.postgres.cdm.hikari")
     public DataSource cdmDataSource(@Qualifier("cdmDataSourceProperties") DataSourceProperties cdmDataSourceProperties) {
         try {
-            cdmDataSourceProperties.setPassword(Encryptor.decrypt(cdmDataSourceProperties.getPassword()));
+            cdmDataSourceProperties.setPassword(cdmDataSourceProperties.getPassword());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

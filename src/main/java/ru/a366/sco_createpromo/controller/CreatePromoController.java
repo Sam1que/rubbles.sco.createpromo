@@ -16,7 +16,7 @@ import ru.a366.sco_createpromo.model.ScoRequest;
 import ru.a366.sco_createpromo.model.ScoResponse;
 import ru.a366.sco_createpromo.service.PromotionService;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,11 +45,11 @@ public class CreatePromoController {
     @ResponseBody
     public ResponseEntity<?> fakeScoMethod(@RequestBody ScoRequest request) {
         log.info("Received POST {} request", scoPostMapping);
-        Random random = new Random();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         ScoResponse response = new ScoResponse();
-        response.setPromoId(random.nextLong(100) + 1);
+        response.setPromoId(random.nextLong(100L) + 1L);
         response.setStatus("success");
-        response.setPlatformPromoId(random.nextLong(100) + 2);
+        response.setPlatformPromoId(random.nextLong(100L) + 2L);
         return ResponseEntity.ok(response);
     }
 }

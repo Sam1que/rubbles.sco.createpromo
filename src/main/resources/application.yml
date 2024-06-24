@@ -5,52 +5,46 @@ app:
 spring:
   jackson:
     deserialization:
-      fail-on-unknown-properties: true
+      fail-on-unknown-properties: false
 mapping:
-  hostname: http://localhost:8080
-  rubbles-post: /rubbles
-  sco-post: /createpromo
+  hostname: ${SCO_URL:http://localhost:8080}
+  rubbles-post: ${POST_MAPPING:/rubbles}
+  sco-post: ${SCO_POST:/createpromo}
 db:
   sql:
-    update-rb-promo-acrm-sco: UPDATE RB_PROMO_ACRM_SCO SET SCO_UPLOAD_FLG = 1 WHERE PROMO_ID IN (:promo_id);
+    update-rb-promo-acrm-sco: UPDATE &rb_promo_acrm_sco SET SCO_UPLOAD_FLG = 1 WHERE PROMO_ID IN (:promo_id);
   tables:
-    rb-promo-acrm-sco: RB_PROMO_ACRM_SCO
-    rb-item-groups: RB_ITEM_GROUPS
-    rb-pos-groups: RB_POS_GROUPS
-    int-rb-item-list: INT_RB_ITEM_LIST
-    int-post-of-sales-rb: INT_POINT_OF_SALES_RB
+    rb-promo-acrm-sco: ${RB_PROMO_ACRM_SCO_TABLE:RB_PROMO_ACRM_SCO}
+    rb-item-groups:  ${RB_ITEM_GROUPS_TABLE:CDM.RB_ITEM_GROUPS}
+    rb-pos-groups:  ${RB_POS_GROUPS_TABLE:CDM.RB_POS_GROUPS}
+    int-rb-item-list: ${INT_RB_ITEM_LIST_TABLE}
+    int-post-of-sales-rb: ${INT_POINT_OF_SALES_RB_TABLE}
+  seq:
+    item-gr-id: ${RB_ITM_GR_ID_SEQUENCE}
+    pos-gr-id: ${POS_GR_ID_SEQUENCE}
+    int-item-id: ${INT_ITEM_ID_SEQUENCE}
+    int-pos-id: ${INT_POS_ID_SEQUENCE}
+
   postgres:
-    batch_size: 8
-    batch_timeout_ms: 1000
+    batch_size: ${BATCH_SIZE:1000}
+    batch_timeout_ms: ${BATCH_TIMEOUT_MS:1000}
     cdm:
-      url: jdbc:postgresql://127.0.0.1:5432/a366?reWriteBatchedInserts=true
-      username: postgres
-      password: pHzRcr9Bp70%3D
+      url: ${POSTGRES_CDM_URL:jdbc:postgresql://sas-acrm-cdm-dev.id-soft.network:5432/sas?reWriteBatchedInserts=true}
+      username: ${POSTGRES_CDM_USERNAME:sas}
+      password: ${POSTGRES_CDM_PASSWORD}
       hikari:
         pool-name: postgres-pool-cdm
-        minimum-idle: 0
-        maximum-pool-size: 1
+        minimum-idle: ${CDM_HIKARI_MINIMUM_IDLE:0}
+        maximum-pool-size: ${CDM_HIKARI_MAXIMUM_POOL_SIZE:1}
     int:
-      url: jdbc:postgresql://127.0.0.1:5432/a366?reWriteBatchedInserts=true
-      username: postgres
-      password: pHzRcr9Bp70%3D
+      url: ${POSTGRES_SCO_INT_URL:jdbc:postgresql://sas-acrm-dwh-dev.id-soft.network:5432/sas_zagruzka_dev?reWriteBatchedInserts=true}
+      username: ${POSTGRES_SCO_INT_USERNAME:sas}
+      password: ${POSTGRES_SCO_INT_PASSWORD}
       hikari:
         pool-name: postgres-pool-int
-        minimum-idle: 0
-        maximum-pool-size: 1
+        minimum-idle: ${INT_HIKARI_MINIMUM_IDLE:0}
+        maximum-pool-size: ${INT_HIKARI_MAXIMUM_POOL_SIZE:1}
 
-sftp:
-  host: 192.168.56.101
-  username: java
-  password: 9n1b97QvqG8RA1YZdlKLJQ%3D%3D
 sco:
-  retry_count: 2
-  retry_timeout_sec: 1
-files:
-  local:
-    #относительный путь
-    directory:
-    archive-directory: archive/
-  remote:
-    directory: /upload/
-  remove-success-files: true
+  retry_count: ${RETRY_COUNT:2}
+  retry_timeout_sec: ${RETRY_TIMEOUT_SEC:1}

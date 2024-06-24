@@ -26,7 +26,7 @@ public class PromotionMapper {
         scoRequest.setDisOnlineVedFlg(rubblesRequest.getDisOnlineVedFlg() != null ? rubblesRequest.getDisOnlineVedFlg() : null);
         scoRequest.setOldDisInFlg(rubblesRequest.getOldDisInFlg() != null ? rubblesRequest.getOldDisInFlg() : null);
         scoRequest.setFractPacFlg(rubblesRequest.getFractPacFlg() != null ? rubblesRequest.getFractPacFlg() : null);
-        scoRequest.setDiscountOption(rubblesRequest.getDiscountOption() != null ? rubblesRequest.getDiscountOption().toString() : null); // TODO 25.02.24 - подбить тип поля
+        scoRequest.setDiscountOption(rubblesRequest.getDiscountOption() != null ? rubblesRequest.getDiscountOption().toString() : null);
         scoRequest.setMinItemCount(rubblesRequest.getMinItemCount() != null ? rubblesRequest.getMinItemCount() : null);
         scoRequest.setItemCount(rubblesRequest.getItemCount() != null ? rubblesRequest.getItemCount() : null);
         scoRequest.setItemIndCount(rubblesRequest.getItemIndCount() != null ? rubblesRequest.getItemIndCount() : null);

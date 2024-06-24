@@ -1,6 +1,7 @@
 package ru.a366.sco_createpromo.exception;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ErrorHandler {
     @AllArgsConstructor
     @Getter
+    @Builder
     public static class ApiError {
         private final String code;
         private final String desc;
