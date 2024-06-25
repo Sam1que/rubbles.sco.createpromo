@@ -48,3 +48,4 @@ db:
 sco:
   retry_count: ${RETRY_COUNT:2}
   retry_timeout_sec: ${RETRY_TIMEOUT_SEC:1}
+  header: ${SCO_HEADER}

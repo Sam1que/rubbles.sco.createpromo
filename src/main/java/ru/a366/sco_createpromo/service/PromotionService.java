@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -44,6 +46,9 @@ public class PromotionService {
     @Value("${mapping.sco-post}")
     private String scoPost;
 
+    @Value("${sco.header}")
+    private String scoHeader;
+
     public ResponseEntity<?> callScoFromRubbles(RubblesRequest request) throws InterruptedException {
         String url = hostname + scoPost;
         int retryNum = 1;
@@ -51,9 +56,14 @@ public class PromotionService {
 
         do {
             try {
-                ScoRequest scoRequest =  PromotionMapper.fromRubblesRequest(request);
+                ScoRequest scoRequest = PromotionMapper.fromRubblesRequest(request);
                 log.debug("Response to SCO {}", objectMapper.writeValueAsString(scoRequest));
-                response = restTemplate.postForObject(url, scoRequest, ScoResponse.class);
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("X-Auth-Key", scoHeader);
+
+                HttpEntity<ScoRequest> requestEntity = new HttpEntity<>(scoRequest, headers);
+                response = restTemplate.postForObject(url, requestEntity, ScoResponse.class);
                 log.debug("Answer from SCO {}", objectMapper.writeValueAsString(response));
                 if (response != null) {
                     if(response.getStatus().equals("success")) {
