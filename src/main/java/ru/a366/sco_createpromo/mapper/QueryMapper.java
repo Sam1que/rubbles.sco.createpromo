@@ -19,7 +19,7 @@ public class QueryMapper {
         try {
             return RbPromoAcrmQuery.builder()
                     .promoId(response.getPromoId())
-                    .promptFlg(request.getPromptFlg())
+                    //.promptFlg(request.getPromptFlg())
                     .promoName(request.getPromoName())
                     .scoTemplateNum(request.getScoTemplateNum())
                     .scoTemplateCd(request.getScoTemplateCd())

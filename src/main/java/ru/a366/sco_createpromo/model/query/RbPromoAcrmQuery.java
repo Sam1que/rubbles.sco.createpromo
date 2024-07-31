@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Builder
@@ -125,13 +126,13 @@ public class RbPromoAcrmQuery implements Query {
 
     @JsonProperty("start_date")
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private ZonedDateTime startDate;
 
     @JsonProperty("end_date")
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private ZonedDateTime endDate;
 
     @JsonProperty("start_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")

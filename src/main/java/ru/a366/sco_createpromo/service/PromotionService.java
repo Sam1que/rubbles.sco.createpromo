@@ -21,6 +21,8 @@ import ru.a366.sco_createpromo.model.RubblesResponse;
 import ru.a366.sco_createpromo.model.ScoRequest;
 import ru.a366.sco_createpromo.model.ScoResponse;
 
+import java.time.LocalDate;
+
 @Service
 @Slf4j
 public class PromotionService {
@@ -53,18 +55,19 @@ public class PromotionService {
         String url = hostname + scoPost;
         int retryNum = 1;
         ScoResponse response = null;
-
+        request.setDateStartSr(LocalDate.from(request.getDateStartSrInput()));
+        request.setDateEndSr(LocalDate.from(request.getDateEndSrInput()));
         do {
             try {
                 ScoRequest scoRequest = PromotionMapper.fromRubblesRequest(request);
-                log.debug("Response to SCO {}", objectMapper.writeValueAsString(scoRequest));
+                log.info("Response to SCO {}", objectMapper.writeValueAsString(scoRequest));
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("X-Auth-Key", scoHeader);
 
                 HttpEntity<ScoRequest> requestEntity = new HttpEntity<>(scoRequest, headers);
                 response = restTemplate.postForObject(url, requestEntity, ScoResponse.class);
-                log.debug("Answer from SCO {}", objectMapper.writeValueAsString(response));
+                log.info("Answer from SCO {}", objectMapper.writeValueAsString(response));
                 if (response != null) {
                     if(response.getStatus().equals("success")) {
                         processResponse(request, response);

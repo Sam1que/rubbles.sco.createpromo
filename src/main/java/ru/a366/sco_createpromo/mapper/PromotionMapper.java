@@ -4,13 +4,14 @@ import ru.a366.sco_createpromo.model.RubblesRequest;
 import ru.a366.sco_createpromo.model.ScoRequest;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 
 public class PromotionMapper {
     public static ScoRequest fromRubblesRequest(RubblesRequest rubblesRequest) {
         ScoRequest scoRequest = new ScoRequest();
-        scoRequest.setPromptFlg(rubblesRequest.getPromptFlg());
+        //scoRequest.setPromptFlg(rubblesRequest.getPromptFlg());
         scoRequest.setPromoName(rubblesRequest.getPromoName());
         scoRequest.setScoTemplateNum(rubblesRequest.getScoTemplateNum());
         scoRequest.setScoTemplateCd(rubblesRequest.getScoTemplateCd());
@@ -96,8 +97,8 @@ public class PromotionMapper {
 
     private static ScoRequest.TimeOption createTimeOption(RubblesRequest request) {
         ScoRequest.TimeOption timeOption = new ScoRequest.TimeOption();
-        timeOption.setStartDate(request.getStartDate() != null ? request.getStartDate() : LocalDate.now().plusDays(request.getDaysUntilStart()));
-        timeOption.setEndDate(request.getEndDate() != null ? request.getEndDate() : LocalDate.now().plusDays(request.getDaysUntilEnd()));
+        timeOption.setStartDate(request.getStartDate() != null ? request.getStartDate() : ZonedDateTime.now().plusDays(request.getDaysUntilStart()));
+        timeOption.setEndDate(request.getEndDate() != null ? request.getEndDate() : ZonedDateTime.now().plusDays(request.getDaysUntilEnd()));
         timeOption.setStartTime(request.getStartTime() != null ? request.getStartTime() : null);
         timeOption.setEndTime(request.getEndTime() != null ? request.getEndTime() : null);
         if(request.getWeekdayAction() != null) {

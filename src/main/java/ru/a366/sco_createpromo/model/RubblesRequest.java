@@ -11,15 +11,16 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Getter
 @Validated
 public class RubblesRequest {
 
-    @JsonProperty("prompt_flg")
-    @NotNull
-    private Boolean promptFlg;
+    //@JsonProperty("prompt_flg")
+    //@NotNull
+    //private Boolean promptFlg;
 
     @JsonProperty("promo_name")
     @NotBlank
@@ -42,19 +43,19 @@ public class RubblesRequest {
     private Long discountCounter;
 
     @JsonProperty("start_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmXXX")
+    private ZonedDateTime startDate;
 
     @JsonProperty("end_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmXXX")
+    private ZonedDateTime  endDate;
 
     @JsonProperty("start_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime startTime;
 
     @JsonProperty("end_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime endTime;
 
     @JsonProperty("days_until_start")
@@ -81,9 +82,19 @@ public class RubblesRequest {
     private Boolean reportFlg;
 
     @JsonProperty("date_start_sr")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmXXX")
+    private ZonedDateTime dateStartSrInput;
+
+    @JsonIgnore
+    @Setter
     private LocalDate dateStartSr;
 
     @JsonProperty("date_end_sr")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmXXX")
+    private ZonedDateTime dateEndSrInput;
+
+    @JsonIgnore
+    @Setter
     private LocalDate dateEndSr;
 
     @JsonProperty("dis_online_order_flg")

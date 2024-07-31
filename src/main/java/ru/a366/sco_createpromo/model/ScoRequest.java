@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Getter
@@ -19,9 +20,9 @@ import java.util.List;
 @NoArgsConstructor
 public class ScoRequest {
 
-    @JsonProperty("prompt_flg")
-    @NotNull
-    private Boolean promptFlg;
+    //@JsonProperty("prompt_flg")
+    //@NotNull
+    //private Boolean promptFlg;
 
     @JsonProperty("promo_name")
     @NotBlank
@@ -186,15 +187,15 @@ public class ScoRequest {
     @Setter
     public static class TimeOption {
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         @JsonProperty("start_date")
         @NotNull
-        private LocalDate startDate;
+        private ZonedDateTime startDate;
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         @JsonProperty("end_date")
         @NotNull
-        private LocalDate endDate;
+        private ZonedDateTime endDate;
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
         @JsonProperty("start_time")

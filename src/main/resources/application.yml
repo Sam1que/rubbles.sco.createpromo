@@ -7,9 +7,9 @@ spring:
     deserialization:
       fail-on-unknown-properties: false
 mapping:
-  hostname: ${SCO_URL:http://localhost:8080}
-  rubbles-post: ${POST_MAPPING:/rubbles}
-  sco-post: ${SCO_POST:/createpromo}
+  hostname: ${SCO_URL}
+  rubbles-post: ${POST_MAPPING}
+  sco-post: ${SCO_POST}
 db:
   sql:
     update-rb-promo-acrm-sco: UPDATE &rb_promo_acrm_sco SET SCO_UPLOAD_FLG = 1 WHERE PROMO_ID IN (:promo_id);
