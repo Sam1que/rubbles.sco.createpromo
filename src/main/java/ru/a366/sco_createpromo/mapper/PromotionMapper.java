@@ -17,7 +17,7 @@ public class PromotionMapper {
         scoRequest.setScoTemplateCd(rubblesRequest.getScoTemplateCd());
         scoRequest.setAboutPromo(rubblesRequest.getAboutPromo());
         scoRequest.setDiscountCounter(rubblesRequest.getDiscountCounter());
-        scoRequest.setDiscountOwner(rubblesRequest.getDiscountOwner());
+        scoRequest.setDiscountOwner(reformatDiscountOwner(rubblesRequest.getDiscountOwner()));
         scoRequest.setPromoExplation(rubblesRequest.getPromoExplation() != null ? rubblesRequest.getPromoExplation() : null);
         scoRequest.setSumOnlineOrderFlg(rubblesRequest.getSumOnlineOrderFlg() != null ? rubblesRequest.getSumOnlineOrderFlg() : null);
         scoRequest.setDisOnlineOrderFlg(rubblesRequest.getDisOnlineOrderFlg() != null ? rubblesRequest.getDisOnlineOrderFlg() : null);
@@ -33,7 +33,7 @@ public class PromotionMapper {
         scoRequest.setItemIndCount(rubblesRequest.getItemIndCount() != null ? rubblesRequest.getItemIndCount() : null);
         scoRequest.setItemCountInd2(rubblesRequest.getItemCountInd2() != null ? rubblesRequest.getItemCountInd2() : null);
         scoRequest.setIndOption(rubblesRequest.getIndOption() != null ? rubblesRequest.getIndOption() : null);
-        scoRequest.setDiscountType(rubblesRequest.getDiscountType() != null ? rubblesRequest.getDiscountType() : null);
+        scoRequest.setDiscountType(rubblesRequest.getDiscountType() != null ? reformatDiscountType(rubblesRequest.getDiscountType()) : null);
         scoRequest.setDiscountValue(rubblesRequest.getDiscountValue() != null ? rubblesRequest.getDiscountValue() : null);
         scoRequest.setPrizeCount(rubblesRequest.getPrizeCount() != null ? rubblesRequest.getPrizeCount() : null);
         scoRequest.setPrizeMaxCount(rubblesRequest.getPrizeMaxCount() != null ? rubblesRequest.getPrizeMaxCount() : null);
@@ -45,6 +45,14 @@ public class PromotionMapper {
         scoRequest.setPromoDisc2(createPromoDiscountTwo(rubblesRequest));
         scoRequest.setPromoDisc3(createPromoDiscountThree(rubblesRequest));
         return scoRequest;
+    }
+    private static String reformatDiscountType (String discountType) {
+        return discountType.equalsIgnoreCase("Руб")?"RUB":"PERSENT";
+    }
+    private static String reformatDiscountOwner (String discountOwner) {
+        if (discountOwner.equalsIgnoreCase("36.6")) return "36,6";
+        if (discountOwner.equalsIgnoreCase("Производитель")) return "Manufacturer";
+        return discountOwner;
     }
 
     private static ScoRequest.PromoDiscountOne createPromoDiscountOne(RubblesRequest request) {

@@ -41,15 +41,15 @@ public class CreatePromoController {
         return promotionService.callScoFromRubbles(rubblesRequest);
     }
 
-    @PostMapping("${mapping.sco-post}")
-    @ResponseBody
-    public ResponseEntity<?> fakeScoMethod(@RequestBody ScoRequest request) {
-        log.info("Received POST {} request", scoPostMapping);
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        ScoResponse response = new ScoResponse();
-        response.setPromoId(random.nextLong(100L) + 1L);
-        response.setStatus("success");
-        response.setPlatformPromoId(random.nextLong(100L) + 2L);
-        return ResponseEntity.ok(response);
-    }
+//    @PostMapping("${mapping.sco-post}")
+//    @ResponseBody
+//    public ResponseEntity<?> fakeScoMethod(@RequestBody ScoRequest request) {
+//        log.info("Received POST {} request", scoPostMapping);
+//        ThreadLocalRandom random = ThreadLocalRandom.current();
+//        ScoResponse response = new ScoResponse();
+//        response.setPromoId(random.nextLong(100L) + 1L);
+//        response.setStatus("success");
+//        response.setPlatformPromoId(random.nextLong(100L) + 2L);
+//        return ResponseEntity.ok(response);
+//    }
 }

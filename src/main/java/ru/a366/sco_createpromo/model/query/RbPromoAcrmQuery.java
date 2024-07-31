@@ -1,7 +1,9 @@
 package ru.a366.sco_createpromo.model.query;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -93,6 +95,7 @@ public class RbPromoAcrmQuery implements Query {
 
     @JsonProperty("discount_type")
     private String discountType;
+
 
     @JsonProperty("discount_value")
     private Long discountValue;

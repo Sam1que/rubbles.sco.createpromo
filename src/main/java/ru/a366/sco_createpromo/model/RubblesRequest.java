@@ -124,6 +124,7 @@ public class RubblesRequest {
     @JsonProperty("discount_type")
     private String discountType;
 
+
     @JsonProperty("discount_value")
     private Long discountValue;
 

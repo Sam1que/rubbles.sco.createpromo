@@ -51,17 +51,24 @@ public class PromotionService {
     @Value("${sco.header}")
     private String scoHeader;
 
-    public ResponseEntity<?> callScoFromRubbles(RubblesRequest request) throws InterruptedException {
+    public ResponseEntity<?> callScoFromRubbles(RubblesRequest request) throws InterruptedException, RubblesDataException {
         String url = hostname + scoPost;
         int retryNum = 1;
         ScoResponse response = null;
         request.setDateStartSr(LocalDate.from(request.getDateStartSrInput()));
         request.setDateEndSr(LocalDate.from(request.getDateEndSrInput()));
+        ScoRequest scoRequest= null;
+        try {
+            scoRequest = PromotionMapper.fromRubblesRequest(request);
+            log.info("Request to SCO {}", objectMapper.writeValueAsString(scoRequest));
+        } catch (Exception e) {
+            log.error("Error parsing message from Rubbles: {}", e.getMessage(), e);
+            throw new RubblesDataException(e.getMessage());
+        }
+
+
         do {
             try {
-                ScoRequest scoRequest = PromotionMapper.fromRubblesRequest(request);
-                log.info("Response to SCO {}", objectMapper.writeValueAsString(scoRequest));
-
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("X-Auth-Key", scoHeader);
 
@@ -69,7 +76,7 @@ public class PromotionService {
                 response = restTemplate.postForObject(url, requestEntity, ScoResponse.class);
                 log.info("Answer from SCO {}", objectMapper.writeValueAsString(response));
                 if (response != null) {
-                    if(response.getStatus().equals("success")) {
+                    if(response.getStatus().equals("ok")) {
                         processResponse(request, response);
                         return ResponseEntity.ok()
                                 .body(new RubblesResponse(
@@ -77,13 +84,18 @@ public class PromotionService {
                                         request.getPromoName(),
                                         response.getPlatformPromoId()
                                 ));
-                    }  else {
-                        throw new RubblesDataException(response.getErrorText());
+                    }
+                    else {
+                        return ResponseEntity.badRequest()
+                                .body(ErrorHandler.ApiError.builder()
+                                        .code("error")
+                                        .desc("Error from SCO: "+ response.getErrorText())
+                                        .build());
                     }
                 }
             } catch (Exception e) {
                 if (e instanceof HttpClientErrorException && ((HttpClientErrorException) e).getStatusCode().is4xxClientError()) {
-                    log.error("Error from CFT: HTTPcode={} {}, body={} " ,((HttpClientErrorException) e).getStatusCode(), ((HttpClientErrorException) e).getStatusText(), ((HttpClientErrorException) e).getResponseBodyAsString());
+                    log.error("Error from SCO: HTTPcode={} {}, body={} " ,((HttpClientErrorException) e).getStatusCode(), ((HttpClientErrorException) e).getStatusText(), ((HttpClientErrorException) e).getResponseBodyAsString());
                     ScoResponse scoResponse = null;
                     try {
                         scoResponse = objectMapper.readValue(((HttpClientErrorException) e).getResponseBodyAsString(), ScoResponse.class);
