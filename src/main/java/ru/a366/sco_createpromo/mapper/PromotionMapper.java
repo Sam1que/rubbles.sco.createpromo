@@ -47,7 +47,7 @@ public class PromotionMapper {
         return scoRequest;
     }
     private static String reformatDiscountType (String discountType) {
-        return discountType.equalsIgnoreCase("Руб")?"RUB":"PERSENT";
+        return discountType.equalsIgnoreCase("Руб")?"RUB":"PERCENT";
     }
     private static String reformatDiscountOwner (String discountOwner) {
         if (discountOwner.equalsIgnoreCase("36.6")) return "36,6";
@@ -142,7 +142,9 @@ public class PromotionMapper {
         srn.setReportFlg(request.getReportFlg() ? 1L : 0L);
         srn.setDateStartSr(request.getDateStartSr() != null ? request.getDateStartSr() : null);
         srn.setDateEndSr(request.getDateEndSr() != null ? request.getDateEndSr() : null);
-        srn.setSrnFlg(request.getSrnFlg() ? 1L : 0L);
+        if (request.getSrnFlg() != null ) {
+            srn.setSrnFlg(request.getSrnFlg() ? 1L : 0L);
+        }
         return srn;
     }
 }

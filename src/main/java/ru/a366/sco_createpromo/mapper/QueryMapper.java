@@ -38,7 +38,7 @@ public class QueryMapper {
                     .itemCount(request.getItemCount())
                     .itemIndCount(request.getItemIndCount())
                     .itemCountInd2(request.getItemCountInd2())
-                    .indOption(Integer.valueOf(request.getIndOption())) // TODO 15.02.24 - подбить тип поля
+                    .indOption(request.getIndOption()!=null ? Integer.valueOf(request.getIndOption()) : null)
                     .discountType(request.getDiscountType())
                     .discountValue(request.getDiscountValue())
                     .prizeCount(request.getPrizeCount())
