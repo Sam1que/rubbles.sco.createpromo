@@ -72,6 +72,7 @@ public class DbAdapter {
         }
         catch (Exception e)
         {
+            log.error("Error getting " + seqItemGrId + " list: " + e.getMessage(),e);
             throw new Exception("Error getting " + seqItemGrId + " list: " + e.getMessage());
         }
     }
@@ -85,6 +86,7 @@ public class DbAdapter {
         }
         catch (Exception e)
         {
+            log.error("Error getting " + seqPosGrId + " list: " + e.getMessage(),e);
             throw new Exception("Error getting " + seqPosGrId + " list:" + e.getMessage());
         }
     }
@@ -92,12 +94,13 @@ public class DbAdapter {
     private List<Map<String, Object>> getSeqIntItemId() throws Exception{
         try {
             log.info("Getting " + seqIntItemId + " list from the sequence");
-            return intDbService
+            return cdmDbService
                     .select("SELECT nextval('" + seqIntItemId + "') as INT_ITEM_ID_SEQ from generate_series(1,1);",
                             (Map<String, Object>) null);
         }
         catch (Exception e)
         {
+            log.error("Error getting " + seqIntItemId + " list: " + e.getMessage(),e);
             throw new Exception("Error getting " + seqIntItemId + " list: " + e.getMessage());
         }
     }
@@ -105,12 +108,13 @@ public class DbAdapter {
     private List<Map<String, Object>> getSeqIntPosId() throws Exception{
         try {
             log.info("Getting " + seqIntPosId + " list from the sequence");
-            return intDbService
+            return cdmDbService
                     .select("SELECT nextval('" + seqIntPosId + "') as INT_POS_ID_SEQ from generate_series(1,1);",
                             (Map<String, Object>) null);
         }
         catch (Exception e)
         {
+            log.error("Error getting " + seqIntPosId + " list: " + e.getMessage(),e);
             throw new Exception("Error getting " + seqIntPosId + " list: " + e.getMessage());
         }
     }
@@ -121,6 +125,7 @@ public class DbAdapter {
             Query queries = QueryMapper.toRbPromoAcrmQuery(request, response);
             cdmDbService.simpleBatchInsert(RB_PROMO_ACRM_SCO, List.of(queries), BATCH_SIZE);
         } catch (Exception e) {
+            log.error("Error inserting into table "+ RB_PROMO_ACRM_SCO +": "+ e.getMessage(),e);
             throw new Exception("Error inserting into table "+ RB_PROMO_ACRM_SCO +": "+ e);
         }
     }
@@ -139,6 +144,7 @@ public class DbAdapter {
             log.info("Inserting into " + INT_RB_ITEM_LIST);
             intDbService.simpleBatchInsert(INT_RB_ITEM_LIST, queries, queries.size());
         } catch (Exception e) {
+            log.error("Error inserting into table "+ INT_RB_ITEM_LIST +": "+ e.getMessage(),e);
             throw new Exception("Error inserting into table "+ INT_RB_ITEM_LIST +": "+ e);
         }
     }
@@ -157,6 +163,7 @@ public class DbAdapter {
             log.info("Inserting into " + INT_POST_OF_SALES_RB);
             intDbService.simpleBatchInsert(INT_POST_OF_SALES_RB, queries, queries.size());
         }  catch (Exception e) {
+            log.error("Error inserting into table "+ INT_POST_OF_SALES_RB +": "+ e.getMessage(),e);
             throw new Exception("Error inserting into table "+ INT_POST_OF_SALES_RB +": "+ e);
         }
     }
@@ -165,12 +172,15 @@ public class DbAdapter {
     public void processQueries(RubblesRequest request, ScoResponse response) throws Exception {
         try {
             insertIntoRbPromoAcrmSco(request, response);
-            insertIntoRbItemGroups(request, response);
-            insertIntoRbPosGroups(request, response);
+            if (request.getArrayItmInd1() != null ||
+                    request.getArrayItmInd2() != null ||
+                    request.getArrayItmPrize() != null) insertIntoRbItemGroups(request, response);
+            if (request.getArrayPos()!= null)  insertIntoRbPosGroups(request, response);
             Map<String, Object> data = new HashMap<>();
             data.put("promo_id", response.getPromoId());
             cdmDbService.batchUpdate(updatePromoAcrmSco.replace("&rb_promo_acrm_sco", RB_PROMO_ACRM_SCO), List.of(data));
         } catch (Exception e) {
+            log.error("Error updating table {}:{}", RB_PROMO_ACRM_SCO,e.getMessage(), e);
             throw new Exception(e.getMessage());
         }
     }

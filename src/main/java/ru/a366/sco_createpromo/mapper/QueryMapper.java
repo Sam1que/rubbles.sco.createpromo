@@ -1,5 +1,6 @@
 package ru.a366.sco_createpromo.mapper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.a366.sco_createpromo.db.DbAdapter;
 import ru.a366.sco_createpromo.model.RubblesRequest;
@@ -9,7 +10,7 @@ import ru.a366.sco_createpromo.model.query.*;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-
+@Slf4j
 public class QueryMapper {
 
     @Autowired
@@ -82,7 +83,7 @@ public class QueryMapper {
         queries.addAll(getTypes(itmGrId, intItemId, response.getPromoId(),
                 request.getArrayItmInd2(), "ind2"));
         queries.addAll(getTypes(itmGrId, intItemId, response.getPromoId(),
-                request.getArrayItmInd2(), "prize"));
+                request.getArrayItmPrize(), "prize"));
         return queries;
     }
 

@@ -95,7 +95,7 @@ public class PromotionService {
                 }
             } catch (Exception e) {
                 if (e instanceof HttpClientErrorException && ((HttpClientErrorException) e).getStatusCode().is4xxClientError()) {
-                    log.error("Error from SCO: HTTPcode={} {}, body={} " ,((HttpClientErrorException) e).getStatusCode(), ((HttpClientErrorException) e).getStatusText(), ((HttpClientErrorException) e).getResponseBodyAsString());
+                    log.error("Error from SCO: HTTP code={} {}, body={} " ,((HttpClientErrorException) e).getStatusCode(), ((HttpClientErrorException) e).getStatusText(), ((HttpClientErrorException) e).getResponseBodyAsString());
                     ScoResponse scoResponse = null;
                     try {
                         scoResponse = objectMapper.readValue(((HttpClientErrorException) e).getResponseBodyAsString(), ScoResponse.class);
