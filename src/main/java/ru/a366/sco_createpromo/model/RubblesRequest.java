@@ -39,7 +39,6 @@ public class RubblesRequest {
     private String aboutPromo;
 
     @JsonProperty("discount_counter")
-    @NotNull
     private Long discountCounter;
 
     @JsonProperty("start_date")
@@ -68,7 +67,6 @@ public class RubblesRequest {
     private String weekdayAction;
 
     @JsonProperty("discount_owner")
-    @NotBlank
     private String discountOwner;
 
     @JsonProperty("promo_explation")
@@ -104,7 +102,7 @@ public class RubblesRequest {
     private Boolean disOnlineReserveFlg;
 
     @JsonProperty("discount_option")
-    private Integer discountOption;
+    private String discountOption;
 
     @JsonProperty("min_item_count")
     private Long minItemCount;

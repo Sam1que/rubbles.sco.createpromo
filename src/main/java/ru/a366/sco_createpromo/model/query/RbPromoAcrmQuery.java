@@ -76,7 +76,7 @@ public class RbPromoAcrmQuery implements Query {
     private Boolean fractPacFlg;
 
     @JsonProperty("discount_option")
-    private Integer discountOption;
+    private String discountOption;
 
     @JsonProperty("min_item_count")
     private Long minItemCount;

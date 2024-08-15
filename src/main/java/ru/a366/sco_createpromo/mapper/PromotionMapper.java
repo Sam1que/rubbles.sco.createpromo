@@ -17,7 +17,7 @@ public class PromotionMapper {
         scoRequest.setScoTemplateCd(rubblesRequest.getScoTemplateCd());
         scoRequest.setAboutPromo(rubblesRequest.getAboutPromo());
         scoRequest.setDiscountCounter(rubblesRequest.getDiscountCounter());
-        scoRequest.setDiscountOwner(reformatDiscountOwner(rubblesRequest.getDiscountOwner()));
+        scoRequest.setDiscountOwner(rubblesRequest.getDiscountOwner() != null ? reformatDiscountOwner(rubblesRequest.getDiscountOwner()): null);
         scoRequest.setPromoExplation(rubblesRequest.getPromoExplation() != null ? rubblesRequest.getPromoExplation() : null);
         scoRequest.setSumOnlineOrderFlg(rubblesRequest.getSumOnlineOrderFlg() != null ? rubblesRequest.getSumOnlineOrderFlg() : null);
         scoRequest.setDisOnlineOrderFlg(rubblesRequest.getDisOnlineOrderFlg() != null ? rubblesRequest.getDisOnlineOrderFlg() : null);
