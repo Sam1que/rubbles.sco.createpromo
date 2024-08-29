@@ -7,6 +7,7 @@ import ru.a366.sco_createpromo.model.RubblesRequest;
 import ru.a366.sco_createpromo.model.ScoResponse;
 import ru.a366.sco_createpromo.model.query.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class QueryMapper {
             return RbPromoAcrmQuery.builder()
                     .promoId(response.getPromoId())
                     //.promptFlg(request.getPromptFlg())
+                    .platformPromoId(response.getPlatformPromoId())
                     .promoName(request.getPromoName())
                     .scoTemplateNum(request.getScoTemplateNum())
                     .scoTemplateCd(request.getScoTemplateCd())
@@ -70,6 +72,9 @@ public class QueryMapper {
                     .startTime(request.getStartTime())
                     .endTime(request.getEndTime())
                     .weekdayAction(request.getWeekdayAction())
+                    .scoUploadFlg(0)
+                    .statusDttm(LocalDateTime.now())
+                    .intStatus(response.getStatus().toUpperCase())
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -100,7 +105,7 @@ public class QueryMapper {
             rbPosGroupQuery.setPromoId(response.getPromoId());
             rbPosGroupQuery.setIntCreateDttm(LocalDateTime.now());
             rbPosGroupQuery.setIntUpdateDttm(LocalDateTime.now());
-            rbPosGroupQuery.setIntStatus("new");
+            rbPosGroupQuery.setIntStatus("NEW");
             rbPosGroupQuery.setAcrmCheckFlg(0);
             queries.add(rbPosGroupQuery);
         }
@@ -122,7 +127,7 @@ public class QueryMapper {
             rbItemGroupsQuery.setPromoId(promoId);
             rbItemGroupsQuery.setIntCreateDttm(LocalDateTime.now());
             rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
-            rbItemGroupsQuery.setIntStatus("new");
+            rbItemGroupsQuery.setIntStatus("NEW");
             rbItemGroupsQuery.setAcrmCheckFlg(0);
             queries.add(rbItemGroupsQuery);
         }

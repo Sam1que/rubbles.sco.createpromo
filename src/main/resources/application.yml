@@ -14,11 +14,11 @@ db:
   sql:
     update-rb-promo-acrm-sco: UPDATE &rb_promo_acrm_sco SET SCO_UPLOAD_FLG = 1 WHERE PROMO_ID IN (:promo_id);
   tables:
-    rb-promo-acrm-sco: ${RB_PROMO_ACRM_SCO_TABLE:RB_PROMO_ACRM_SCO}
-    rb-item-groups:  ${RB_ITEM_GROUPS_TABLE:CDM.RB_ITEM_GROUPS}
-    rb-pos-groups:  ${RB_POS_GROUPS_TABLE:CDM.RB_POS_GROUPS}
-    int-rb-item-list: ${INT_RB_ITEM_LIST_TABLE}
-    int-post-of-sales-rb: ${INT_POINT_OF_SALES_RB_TABLE}
+    rb-promo-acrm-sco: ${RB_PROMO_ACRM_SCO_TABLE}
+    rb-item-groups:  ${RB_ITEM_GROUPS_TABLE}
+    rb-pos-groups:  ${RB_POS_GROUPS_TABLE}
+    int-rb-item-list: ${STG_INT_RB_ITEM_LIST_TABLE}
+    int-post-of-sales-rb: ${STG_INT_POINT_OF_SALES_RB_TABLE}
   seq:
     item-gr-id: ${RB_ITM_GR_ID_SEQUENCE}
     pos-gr-id: ${POS_GR_ID_SEQUENCE}
@@ -26,26 +26,26 @@ db:
     int-pos-id: ${INT_POS_ID_SEQUENCE}
 
   postgres:
-    batch_size: ${BATCH_SIZE:1000}
-    batch_timeout_ms: ${BATCH_TIMEOUT_MS:1000}
+    batch_size: ${BATCH_SIZE}
+    batch_timeout_ms: ${BATCH_TIMEOUT_MS}
     cdm:
-      url: ${POSTGRES_CDM_URL:jdbc:postgresql://sas-acrm-cdm-dev.id-soft.network:5432/sas?reWriteBatchedInserts=true}
-      username: ${POSTGRES_CDM_USERNAME:sas}
+      url: ${POSTGRES_CDM_URL}
+      username: ${POSTGRES_CDM_USERNAME}
       password: ${POSTGRES_CDM_PASSWORD}
       hikari:
         pool-name: postgres-pool-cdm
-        minimum-idle: ${CDM_HIKARI_MINIMUM_IDLE:0}
-        maximum-pool-size: ${CDM_HIKARI_MAXIMUM_POOL_SIZE:1}
+        minimum-idle: 0
+        maximum-pool-size: 1
     int:
-      url: ${POSTGRES_SCO_INT_URL:jdbc:postgresql://sas-acrm-dwh-dev.id-soft.network:5432/sas_zagruzka_dev?reWriteBatchedInserts=true}
-      username: ${POSTGRES_SCO_INT_USERNAME:sas}
+      url: ${POSTGRES_SCO_INT_URL}
+      username: ${POSTGRES_SCO_INT_USERNAME}
       password: ${POSTGRES_SCO_INT_PASSWORD}
       hikari:
         pool-name: postgres-pool-int
-        minimum-idle: ${INT_HIKARI_MINIMUM_IDLE:0}
-        maximum-pool-size: ${INT_HIKARI_MAXIMUM_POOL_SIZE:1}
+        minimum-idle: 0
+        maximum-pool-size: 1
 
 sco:
-  retry_count: ${RETRY_COUNT:2}
-  retry_timeout_sec: ${RETRY_TIMEOUT_SEC:1}
-  header: ${SCO_HEADER}
+  retry_count: ${RETRY_COUNT}
+  retry_timeout_sec: ${RETRY_TIMEOUT_SEC}
+  header: ${SCO_X_AUTH_KEY}

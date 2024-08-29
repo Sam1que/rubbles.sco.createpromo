@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
@@ -194,14 +195,14 @@ public class RbPromoAcrmQuery implements Query {
     private Long minSum3;
 
     @JsonProperty("sco_upload_flg")
-    private Boolean scoUploadFlg;
+    private Integer scoUploadFlg;
 
     @JsonProperty("platform_promo_id")
     private Long platformPromoId;
 
     @JsonProperty("status_dttm")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate statusDttm;
+    private LocalDateTime statusDttm;
 
     @JsonProperty("int_status")
     private String intStatus;
