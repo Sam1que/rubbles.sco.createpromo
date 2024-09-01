@@ -107,6 +107,7 @@ public class QueryMapper {
             rbPosGroupQuery.setIntUpdateDttm(LocalDateTime.now());
             rbPosGroupQuery.setIntStatus("NEW");
             rbPosGroupQuery.setAcrmCheckFlg(0);
+            rbPosGroupQuery.setUploadScoFlg(0);
             queries.add(rbPosGroupQuery);
         }
         return queries;
@@ -129,6 +130,7 @@ public class QueryMapper {
             rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
             rbItemGroupsQuery.setIntStatus("NEW");
             rbItemGroupsQuery.setAcrmCheckFlg(0);
+            rbItemGroupsQuery.setUploadScoFlg(0);
             queries.add(rbItemGroupsQuery);
         }
         return queries;

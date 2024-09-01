@@ -64,4 +64,7 @@ public class ItemGroupsQuery implements Query {
 
     @JsonProperty("acrm_check_flg")
     private int acrmCheckFlg;
+
+    @JsonProperty("upload_sco_flg")
+    private int uploadScoFlg;
 }
