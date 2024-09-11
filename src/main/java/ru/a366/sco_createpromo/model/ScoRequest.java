@@ -229,4 +229,16 @@ public class ScoRequest {
         @JsonProperty("date_end_sr")
         private LocalDate dateEndSr;
     }
+
+    @JsonProperty("array_itm_ind1")
+    private List<Long> arrayItmInd1;
+
+    @JsonProperty("array_itm_ind2")
+    private List<Long> arrayItmInd2;
+
+    @JsonProperty("array_itm_prize")
+    private List<Long> arrayItmPrize;
+
+    @JsonProperty("array_pos")
+    private List<String> arrayPos;
 }

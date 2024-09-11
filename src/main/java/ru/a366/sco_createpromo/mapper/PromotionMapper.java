@@ -44,6 +44,11 @@ public class PromotionMapper {
         scoRequest.setPromoDisc1(createPromoDiscountOne(rubblesRequest));
         scoRequest.setPromoDisc2(createPromoDiscountTwo(rubblesRequest));
         scoRequest.setPromoDisc3(createPromoDiscountThree(rubblesRequest));
+        scoRequest.setArrayItmInd1(rubblesRequest.getArrayItmInd1());
+        scoRequest.setArrayItmInd2(rubblesRequest.getArrayItmInd2());
+        scoRequest.setArrayItmPrize(rubblesRequest.getArrayItmPrize());
+        scoRequest.setArrayPos(rubblesRequest.getArrayPos());
+
         return scoRequest;
     }
     private static String reformatDiscountType (String discountType) {
