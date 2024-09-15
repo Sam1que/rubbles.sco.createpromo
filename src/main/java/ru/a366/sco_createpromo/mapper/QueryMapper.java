@@ -41,7 +41,7 @@ public class QueryMapper {
                     .itemCount(request.getItemCount())
                     .itemIndCount(request.getItemIndCount())
                     .itemCountInd2(request.getItemCountInd2())
-                    .indOption(request.getIndOption()!=null ? Integer.valueOf(request.getIndOption()) : null)
+                    .indOption(request.getIndOption()!=null ? request.getIndOption() : null)
                     .discountType(request.getDiscountType())
                     .discountValue(request.getDiscountValue())
                     .prizeCount(request.getPrizeCount())

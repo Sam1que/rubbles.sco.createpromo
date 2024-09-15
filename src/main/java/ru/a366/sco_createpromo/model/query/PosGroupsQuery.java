@@ -15,7 +15,7 @@ public class PosGroupsQuery implements Query {
     @JsonProperty("pos_gr_id")
     private Long posGrId;
 
-    @JsonProperty("pos_id")
+    @JsonProperty("pos_cd")
     private Long posId;
 
     @JsonProperty("promo_id")

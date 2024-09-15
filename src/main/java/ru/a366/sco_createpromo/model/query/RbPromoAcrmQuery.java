@@ -92,7 +92,7 @@ public class RbPromoAcrmQuery implements Query {
     private Long itemCountInd2;
 
     @JsonProperty("ind_option")
-    private Integer indOption;
+    private String indOption;
 
     @JsonProperty("discount_type")
     private String discountType;

@@ -152,7 +152,7 @@ public class DbAdapter {
     private void insertIntoRbPosGroups(RubblesRequest request, ScoResponse response) throws Exception {
         List<Query> queries = QueryMapper.toRbPosGroups(request, response,
                 (Long) getPosGrIdSeq().get(0).get("POS_GR_ID_SEQ"),
-                (Long) getSeqIntPosId().get(0).get("SEQ_INT_POS_ID"));
+                (Long) getSeqIntPosId().get(0).get("INT_POS_ID_SEQ"));
         try {
             log.info("Inserting into " + RB_POS_GROUPS);
             cdmDbService.simpleBatchInsert(RB_POS_GROUPS, queries, queries.size());
