@@ -74,7 +74,7 @@ public class QueryMapper {
                     .weekdayAction(request.getWeekdayAction())
                     .scoUploadFlg(0)
                     .statusDttm(LocalDateTime.now())
-                    .intStatus(response.getStatus().toUpperCase())
+                    .intStatus(response.getStatus().equalsIgnoreCase("OK") ? "CREATED" : response.getStatus().toUpperCase())
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());

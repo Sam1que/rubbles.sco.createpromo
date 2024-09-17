@@ -1,6 +1,7 @@
 package ru.a366.sco_createpromo.model.query;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class PosGroupsQuery implements Query {
     @JsonProperty("pos_gr_id")
     private Long posGrId;
 
-    @JsonProperty("pos_cd")
+    @JsonProperty("pos_id")
     private Long posId;
 
     @JsonProperty("promo_id")
@@ -49,4 +50,9 @@ public class PosGroupsQuery implements Query {
 
     @JsonProperty("upload_sco_flg")
     private int uploadScoFlg;
+
+    @JsonGetter("pos_cd")
+    private Long getPosCd() {
+        return posId;
+    }
 }
