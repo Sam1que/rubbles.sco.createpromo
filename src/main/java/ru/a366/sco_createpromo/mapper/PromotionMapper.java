@@ -6,6 +6,7 @@ import ru.a366.sco_createpromo.model.ScoRequest;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class PromotionMapper {
@@ -48,6 +49,8 @@ public class PromotionMapper {
         scoRequest.setArrayItmInd2(rubblesRequest.getArrayItmInd2());
         scoRequest.setArrayItmPrize(rubblesRequest.getArrayItmPrize());
         scoRequest.setArrayPos(rubblesRequest.getArrayPos());
+        scoRequest.setPlatforms("all");
+        scoRequest.setSite(List.of(0));
 
         return scoRequest;
     }

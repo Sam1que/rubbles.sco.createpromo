@@ -241,4 +241,10 @@ public class ScoRequest {
 
     @JsonProperty("array_pos")
     private List<String> arrayPos;
+
+    @JsonProperty("platforms")
+    private String platforms;
+
+    @JsonProperty("site")
+    private List<Integer> site;
 }
