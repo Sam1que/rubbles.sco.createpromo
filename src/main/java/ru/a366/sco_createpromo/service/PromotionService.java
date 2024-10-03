@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,15 @@ import ru.a366.sco_createpromo.model.RubblesRequest;
 import ru.a366.sco_createpromo.model.RubblesResponse;
 import ru.a366.sco_createpromo.model.ScoRequest;
 import ru.a366.sco_createpromo.model.ScoResponse;
+import rubbles.asap.sendKafka.adapter.AsapSendKafka;
+import rubbles.asap.sendKafka.config.AsapSendKafkaConfig;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Slf4j
+@Import(AsapSendKafkaConfig.class)
 public class PromotionService {
 
     @Autowired
@@ -32,6 +37,9 @@ public class PromotionService {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private AsapSendKafka asapSendKafka;
 
     @Autowired
     private DbAdapter dbAdapter;
@@ -51,16 +59,26 @@ public class PromotionService {
     @Value("${sco.header}")
     private String scoHeader;
 
+    @Value("${kafka.recipients}")
+    private List<String> asapRecipients;
+    @Value("${kafka.sender}")
+    private String asapSender;
+
     public ResponseEntity<?> callScoFromRubbles(RubblesRequest request) throws InterruptedException, RubblesDataException {
         String url = hostname + scoPost;
         int retryNum = 1;
         ScoResponse response = null;
-        request.setDateStartSr(LocalDate.from(request.getDateStartSrInput()));
-        request.setDateEndSr(LocalDate.from(request.getDateEndSrInput()));
+        if(request.getDateStartSrInput() != null) {
+            request.setDateStartSr(LocalDate.from(request.getDateStartSrInput()));
+        }
+        if(request.getDateEndSrInput() != null) {
+            request.setDateEndSr(LocalDate.from(request.getDateEndSrInput()));
+        }
         ScoRequest scoRequest= null;
         try {
             scoRequest = PromotionMapper.fromRubblesRequest(request);
             log.info("Request to SCO {}", objectMapper.writeValueAsString(scoRequest));
+
         } catch (Exception e) {
             log.error("Error parsing message from Rubbles: {}", e.getMessage(), e);
             throw new RubblesDataException(e.getMessage());
@@ -86,6 +104,9 @@ public class PromotionService {
                                 ));
                     }
                     else {
+                        asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
+                                "Failed to create SCO promo",
+                                "Got error from SCO while creating promo: " + response.getErrorText());
                         return ResponseEntity.badRequest()
                                 .body(ErrorHandler.ApiError.builder()
                                         .code("error")

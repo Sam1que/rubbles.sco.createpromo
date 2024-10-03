@@ -49,7 +49,6 @@ public class QueryMapper {
                     .promoOnlineOrderFlg(request.getPromoOnlineOrderFlg())
                     .promoOnlineReserveFlg(request.getPromoOnlineReserveFlg())
                     .srnFlg(request.getSrnFlg())
-                    .reportFlg(request.getReportFlg())
                     .dateStartSr(request.getDateStartSr())
                     .dateEndSr(request.getDateEndSr())
                     .minSum1(request.getMinSum1())
@@ -116,22 +115,24 @@ public class QueryMapper {
     private static List<Query> getTypes(Long itmGrId, Long intItemId, Long promoId,
                                         List<Long> items, String type) {
         List<Query> queries = new LinkedList<>();
-        for(Long item: items) {
-            ItemGroupsQuery rbItemGroupsQuery = new ItemGroupsQuery();
-            rbItemGroupsQuery.setItmGrId(itmGrId);
-            rbItemGroupsQuery.setItmCd(item);
-            rbItemGroupsQuery.setItmGrIdInd1(type.equals("ind1") ? itmGrId : null);
-            rbItemGroupsQuery.setItmGrIdInd2(type.equals("ind2") ? itmGrId : null);
-            rbItemGroupsQuery.setItmGrIdPrize(type.equals("prize") ? itmGrId : null);
-            rbItemGroupsQuery.setItmGrType(type);
-            rbItemGroupsQuery.setIntQueryId(intItemId);
-            rbItemGroupsQuery.setPromoId(promoId);
-            rbItemGroupsQuery.setIntCreateDttm(LocalDateTime.now());
-            rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
-            rbItemGroupsQuery.setIntStatus("NEW");
-            rbItemGroupsQuery.setAcrmCheckFlg(0);
-            rbItemGroupsQuery.setUploadScoFlg(0);
-            queries.add(rbItemGroupsQuery);
+        if(items != null && !items.isEmpty()) {
+            for (Long item : items) {
+                ItemGroupsQuery rbItemGroupsQuery = new ItemGroupsQuery();
+                rbItemGroupsQuery.setItmGrId(itmGrId);
+                rbItemGroupsQuery.setItmCd(item);
+                rbItemGroupsQuery.setItmGrIdInd1(type.equals("ind1") ? itmGrId : null);
+                rbItemGroupsQuery.setItmGrIdInd2(type.equals("ind2") ? itmGrId : null);
+                rbItemGroupsQuery.setItmGrIdPrize(type.equals("prize") ? itmGrId : null);
+                rbItemGroupsQuery.setItmGrType(type);
+                rbItemGroupsQuery.setIntQueryId(intItemId);
+                rbItemGroupsQuery.setPromoId(promoId);
+                rbItemGroupsQuery.setIntCreateDttm(LocalDateTime.now());
+                rbItemGroupsQuery.setIntUpdateDttm(LocalDateTime.now());
+                rbItemGroupsQuery.setIntStatus("NEW");
+                rbItemGroupsQuery.setAcrmCheckFlg(0);
+                rbItemGroupsQuery.setUploadScoFlg(0);
+                queries.add(rbItemGroupsQuery);
+            }
         }
         return queries;
     }

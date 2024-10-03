@@ -6,6 +6,14 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: false
+kafka:
+  recipients: ${ASAP_RECIPIENTS:a}
+  sender: ${ASAP_SENDER:a}
+  topics:
+    asap:
+      topic_name: ${KAFKA_ASAP_TOPIC_NAME:ASAP_NOTIFICATIONS}
+      bootstrap-servers: ${KAFKA_ASAP_BOOTSTRAP_SERVERS:10.250.182.7:9092}
+
 mapping:
   hostname: ${SCO_URL}
   rubbles-post: ${POST_MAPPING}

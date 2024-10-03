@@ -49,8 +49,7 @@ public class PromotionMapper {
         scoRequest.setArrayItmInd2(rubblesRequest.getArrayItmInd2());
         scoRequest.setArrayItmPrize(rubblesRequest.getArrayItmPrize());
         scoRequest.setArrayPos(rubblesRequest.getArrayPos());
-        scoRequest.setPlatforms("all");
-        scoRequest.setSite(List.of(0));
+        scoRequest.setPlatforms("tt");
 
         return scoRequest;
     }
@@ -147,7 +146,6 @@ public class PromotionMapper {
 
     private static ScoRequest.SRN createSrn(RubblesRequest request) {
         ScoRequest.SRN srn = new ScoRequest.SRN();
-        srn.setReportFlg(request.getReportFlg() ? 1L : 0L);
         srn.setDateStartSr(request.getDateStartSr() != null ? request.getDateStartSr() : null);
         srn.setDateEndSr(request.getDateEndSr() != null ? request.getDateEndSr() : null);
         if (request.getSrnFlg() != null ) {

@@ -75,10 +75,6 @@ public class RubblesRequest {
     @JsonProperty("srn_flg")
     private Boolean srnFlg;
 
-    @JsonProperty("report_flg")
-    @NotNull
-    private Boolean reportFlg;
-
     @JsonProperty("date_start_sr")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmXXX")
     private ZonedDateTime dateStartSrInput;
@@ -215,4 +211,10 @@ public class RubblesRequest {
 
     @JsonProperty("array_pos")
     private List<String> arrayPos;
+
+    @JsonProperty("platforms")
+    private String platforms;
+
+    @JsonProperty("site")
+    private List<Long> site;
 }

@@ -244,7 +244,4 @@ public class ScoRequest {
 
     @JsonProperty("platforms")
     private String platforms;
-
-    @JsonProperty("site")
-    private List<Integer> site;
 }

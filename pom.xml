@@ -64,6 +64,16 @@
 			<version>6.1.1</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>3.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
 			<version>1.9.0</version>
@@ -74,11 +84,11 @@
 			<version>0.1.55</version>
 		</dependency>
 		<dependency>
-			<groupId>com.glowbyte</groupId>
-			<artifactId>crypt</artifactId>
+			<groupId>rubbles</groupId>
+			<artifactId>rubbles.asap.sendkafka</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/libs/crypt-1.0.jar</systemPath>
+			<systemPath>${project.basedir}/libs/rubbles.asap.sendKafka-1.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
