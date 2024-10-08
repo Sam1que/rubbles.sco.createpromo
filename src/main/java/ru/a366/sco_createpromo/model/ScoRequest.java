@@ -206,7 +206,7 @@ public class ScoRequest {
         private LocalTime endTime;
 
         @JsonProperty("weekday_action")
-        private String weekdayAction;
+        private List<String> weekdayAction;
 
     }
 

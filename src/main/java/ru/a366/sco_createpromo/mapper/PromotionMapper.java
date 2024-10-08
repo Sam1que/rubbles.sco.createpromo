@@ -6,6 +6,7 @@ import ru.a366.sco_createpromo.model.ScoRequest;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -117,29 +118,33 @@ public class PromotionMapper {
         timeOption.setStartTime(request.getStartTime() != null ? request.getStartTime() : null);
         timeOption.setEndTime(request.getEndTime() != null ? request.getEndTime() : null);
         if(request.getWeekdayAction() != null) {
-            switch (request.getWeekdayAction()) {
-                case "пн":
-                    timeOption.setWeekdayAction("mon");
-                    break;
-                case "вт":
-                    timeOption.setWeekdayAction("tue");
-                    break;
-                case "ср":
-                    timeOption.setWeekdayAction("wed");
-                    break;
-                case "чт":
-                    timeOption.setWeekdayAction("thu");
-                    break;
-                case "пт":
-                    timeOption.setWeekdayAction("fri");
-                    break;
-                case "сб":
-                    timeOption.setWeekdayAction("sat");
-                    break;
-                case "вс":
-                    timeOption.setWeekdayAction("sun");
-                    break;
+            List<String> weekdayAction = new LinkedList<>();
+            for(String action : request.getWeekdayAction()){
+                switch (action) {
+                    case "пн":
+                        weekdayAction.add("mon");
+                        break;
+                    case "вт":
+                        weekdayAction.add("tue");
+                        break;
+                    case "ср":
+                        weekdayAction.add("wed");
+                        break;
+                    case "чт":
+                        weekdayAction.add("thu");
+                        break;
+                    case "пт":
+                        weekdayAction.add("fri");
+                        break;
+                    case "сб":
+                        weekdayAction.add("sat");
+                        break;
+                    case "вс":
+                        weekdayAction.add("sun");
+                        break;
+                }
             }
+            timeOption.setWeekdayAction(weekdayAction);
         }
         return timeOption;
     }

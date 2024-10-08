@@ -64,7 +64,7 @@ public class RubblesRequest {
     private Long daysUntilEnd;
 
     @JsonProperty("weekday_action")
-    private String weekdayAction;
+    private List<String> weekdayAction;
 
     @JsonProperty("discount_owner")
     private String discountOwner;

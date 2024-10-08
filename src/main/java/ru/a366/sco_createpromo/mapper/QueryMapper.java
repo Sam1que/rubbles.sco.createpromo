@@ -70,7 +70,7 @@ public class QueryMapper {
                     .endDate(request.getEndDate())
                     .startTime(request.getStartTime())
                     .endTime(request.getEndTime())
-                    .weekdayAction(request.getWeekdayAction())
+                    .weekdayAction(request.getWeekdayAction() != null ? String.join(", ", request.getWeekdayAction()) : null)
                     .scoUploadFlg(0)
                     .statusDttm(LocalDateTime.now())
                     .intStatus(response.getStatus().equalsIgnoreCase("OK") ? "CREATED" : response.getStatus().toUpperCase())
