@@ -46,16 +46,13 @@ public class PromotionMapper {
         scoRequest.setPromoDisc1(createPromoDiscountOne(rubblesRequest));
         scoRequest.setPromoDisc2(createPromoDiscountTwo(rubblesRequest));
         scoRequest.setPromoDisc3(createPromoDiscountThree(rubblesRequest));
-        scoRequest.setArrayItmInd1(rubblesRequest.getArrayItmInd1());
-        scoRequest.setArrayItmInd2(rubblesRequest.getArrayItmInd2());
-        scoRequest.setArrayItmPrize(rubblesRequest.getArrayItmPrize());
         scoRequest.setArrayPos(rubblesRequest.getArrayPos());
         scoRequest.setPlatforms("tt");
 
         return scoRequest;
     }
     private static String reformatDiscountType (String discountType) {
-        return discountType.equalsIgnoreCase("Руб")?"RUB":"PERCENT";
+        return discountType.equalsIgnoreCase("RUB")?"RUB":"PERCENT";
     }
     private static String reformatDiscountOwner (String discountOwner) {
         if (discountOwner.equalsIgnoreCase("36.6")) return "36,6";
@@ -65,7 +62,9 @@ public class PromotionMapper {
 
     private static ScoRequest.PromoDiscountOne createPromoDiscountOne(RubblesRequest request) {
         ScoRequest.PromoDiscountOne promoDiscount = new ScoRequest.PromoDiscountOne();
-        promoDiscount.setDiscountType("PERCENT");
+        if(request.getDiscountType1() != null) {
+            promoDiscount.setDiscountType(request.getDiscountType1().equalsIgnoreCase("RUB") ? "RUB" : "PERCENT");
+        }
         promoDiscount.setDiscountValue(request.getDiscountValue1() != null ? request.getDiscountValue1() : null);
         promoDiscount.setItemCount(request.getItemCount1() != null ? request.getItemCount1() : null);
         if(request.getScoAndOr1() != null) {
@@ -81,7 +80,9 @@ public class PromotionMapper {
 
     private static ScoRequest.PromoDiscountTwo createPromoDiscountTwo(RubblesRequest request) {
         ScoRequest.PromoDiscountTwo promoDiscount = new ScoRequest.PromoDiscountTwo();
-        promoDiscount.setDiscountType("PERCENT");
+        if(request.getDiscountType2() != null) {
+            promoDiscount.setDiscountType(request.getDiscountType2().equalsIgnoreCase("RUB") ? "RUB" : "PERCENT");
+        }
         promoDiscount.setDiscountValue(request.getDiscountValue2() != null ? request.getDiscountValue2() : null);
         promoDiscount.setItemCount(request.getItemCount2() != null ? request.getItemCount2() : null);
         if(request.getScoAndOr2() != null) {
@@ -97,8 +98,9 @@ public class PromotionMapper {
 
     private static ScoRequest.PromoDiscountThree createPromoDiscountThree(RubblesRequest request) {
         ScoRequest.PromoDiscountThree promoDiscount = new ScoRequest.PromoDiscountThree();
-        promoDiscount.setDiscountType("PERCENT");
-        promoDiscount.setDiscountValue(request.getDiscountValue3() != null ? request.getDiscountValue3() : null);
+        if(request.getDiscountType3() != null) {
+            promoDiscount.setDiscountType(request.getDiscountType3().equalsIgnoreCase("RUB") ? "RUB" : "PERCENT");
+        }        promoDiscount.setDiscountValue(request.getDiscountValue3() != null ? request.getDiscountValue3() : null);
         promoDiscount.setItemCount(request.getItemCount3() != null ? request.getItemCount3() : null);
         if(request.getScoAndOr3() != null) {
             if(request.getScoAndOr3().equals("И")) {
