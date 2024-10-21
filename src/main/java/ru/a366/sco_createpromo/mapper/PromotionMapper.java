@@ -61,6 +61,29 @@ public class PromotionMapper {
     }
 
     private static ScoRequest.PromoDiscountOne createPromoDiscountOne(RubblesRequest request) {
+        switch(request.getScoTemplateNum().toString()) {
+            case "2":
+            case "3":
+                if(request.getMinSum1() == null || request.getDiscountType1() == null || request.getDiscountValue1() == null) {
+                    return null;
+                }
+                break;
+            case "6":
+                if(request.getMinSum1() == null || request.getItemCount1() == null) {
+                    return null;
+                }
+                break;
+            case "9":
+                if(request.getMinSum1() == null || request.getDiscountType1() == null
+                        || request.getDiscountValue1() == null || request.getScoAndOr1() == null
+                        || request.getItemCount1() == null) {
+                    return null;
+                }
+                break;
+            default:
+                return null;
+        }
+
         ScoRequest.PromoDiscountOne promoDiscount = new ScoRequest.PromoDiscountOne();
         if(request.getDiscountType1() != null) {
             promoDiscount.setDiscountType(request.getDiscountType1().equalsIgnoreCase("RUB") ? "RUB" : "PERCENT");
@@ -79,6 +102,28 @@ public class PromotionMapper {
     }
 
     private static ScoRequest.PromoDiscountTwo createPromoDiscountTwo(RubblesRequest request) {
+        switch(request.getScoTemplateNum().toString()) {
+            case "2":
+            case "3":
+                if(request.getMinSum2() == null || request.getDiscountType2() == null || request.getDiscountValue2() == null) {
+                    return null;
+                }
+                break;
+            case "6":
+                if(request.getMinSum2() == null || request.getItemCount2() == null) {
+                    return null;
+                }
+                break;
+            case "9":
+                if(request.getMinSum2() == null || request.getDiscountType2() == null
+                        || request.getDiscountValue2() == null || request.getScoAndOr2() == null
+                        || request.getItemCount2() == null) {
+                    return null;
+                }
+                break;
+            default:
+                return null;
+        }
         ScoRequest.PromoDiscountTwo promoDiscount = new ScoRequest.PromoDiscountTwo();
         if(request.getDiscountType2() != null) {
             promoDiscount.setDiscountType(request.getDiscountType2().equalsIgnoreCase("RUB") ? "RUB" : "PERCENT");
@@ -97,6 +142,28 @@ public class PromotionMapper {
     }
 
     private static ScoRequest.PromoDiscountThree createPromoDiscountThree(RubblesRequest request) {
+        switch(request.getScoTemplateNum().toString()) {
+            case "2":
+            case "3":
+                if(request.getMinSum3() == null || request.getDiscountType3() == null || request.getDiscountValue3() == null) {
+                    return null;
+                }
+                break;
+            case "6":
+                if(request.getMinSum3() == null || request.getItemCount3() == null) {
+                    return null;
+                }
+                break;
+            case "9":
+                if(request.getMinSum3() == null || request.getDiscountType3() == null
+                        || request.getDiscountValue3() == null || request.getScoAndOr3() == null
+                        || request.getItemCount3() == null) {
+                    return null;
+                }
+                break;
+            default:
+                return null;
+        }
         ScoRequest.PromoDiscountThree promoDiscount = new ScoRequest.PromoDiscountThree();
         if(request.getDiscountType3() != null) {
             promoDiscount.setDiscountType(request.getDiscountType3().equalsIgnoreCase("RUB") ? "RUB" : "PERCENT");
@@ -122,29 +189,7 @@ public class PromotionMapper {
         if(request.getWeekdayAction() != null) {
             List<String> weekdayAction = new LinkedList<>();
             for(String action : request.getWeekdayAction()){
-                switch (action) {
-                    case "пн":
-                        weekdayAction.add("mon");
-                        break;
-                    case "вт":
-                        weekdayAction.add("tue");
-                        break;
-                    case "ср":
-                        weekdayAction.add("wed");
-                        break;
-                    case "чт":
-                        weekdayAction.add("thu");
-                        break;
-                    case "пт":
-                        weekdayAction.add("fri");
-                        break;
-                    case "сб":
-                        weekdayAction.add("sat");
-                        break;
-                    case "вс":
-                        weekdayAction.add("sun");
-                        break;
-                }
+                weekdayAction.add(action);
             }
             timeOption.setWeekdayAction(weekdayAction);
         }
