@@ -52,7 +52,7 @@ public class PromotionMapper {
         return scoRequest;
     }
     private static String reformatDiscountType (String discountType) {
-        return discountType.equalsIgnoreCase("RUB")?"RUB":"PERCENT";
+        return discountType.equalsIgnoreCase("Руб")?"RUB":"PERCENT";
     }
     private static String reformatDiscountOwner (String discountOwner) {
         if (discountOwner.equalsIgnoreCase("36.6")) return "36,6";
@@ -91,11 +91,7 @@ public class PromotionMapper {
         promoDiscount.setDiscountValue(request.getDiscountValue1() != null ? request.getDiscountValue1() : null);
         promoDiscount.setItemCount(request.getItemCount1() != null ? request.getItemCount1() : null);
         if(request.getScoAndOr1() != null) {
-            if(request.getScoAndOr1().equals("И")) {
-                promoDiscount.setScoAndOr("AND");
-            } else if(request.getScoAndOr1().equals("ИЛИ")) {
-                promoDiscount.setScoAndOr("OR");
-            }
+            promoDiscount.setScoAndOr(request.getScoAndOr1());
         }
         promoDiscount.setMinSum(request.getMinSum1() != null ? request.getMinSum1() : null);
         return promoDiscount;
@@ -131,11 +127,7 @@ public class PromotionMapper {
         promoDiscount.setDiscountValue(request.getDiscountValue2() != null ? request.getDiscountValue2() : null);
         promoDiscount.setItemCount(request.getItemCount2() != null ? request.getItemCount2() : null);
         if(request.getScoAndOr2() != null) {
-            if(request.getScoAndOr2().equals("И")) {
-                promoDiscount.setScoAndOr("AND");
-            } else if(request.getScoAndOr2().equals("ИЛИ")) {
-                promoDiscount.setScoAndOr("OR");
-            }
+            promoDiscount.setScoAndOr(request.getScoAndOr2());
         }
         promoDiscount.setMinSum(request.getMinSum2() != null ? request.getMinSum2() : null);
         return promoDiscount;
@@ -170,11 +162,7 @@ public class PromotionMapper {
         }        promoDiscount.setDiscountValue(request.getDiscountValue3() != null ? request.getDiscountValue3() : null);
         promoDiscount.setItemCount(request.getItemCount3() != null ? request.getItemCount3() : null);
         if(request.getScoAndOr3() != null) {
-            if(request.getScoAndOr3().equals("И")) {
-                promoDiscount.setScoAndOr("AND");
-            } else if(request.getScoAndOr3().equals("ИЛИ")) {
-                promoDiscount.setScoAndOr("OR");
-            }
+            promoDiscount.setScoAndOr(request.getScoAndOr3());
         }
         promoDiscount.setMinSum(request.getMinSum3() != null ? request.getMinSum3() : null);
         return promoDiscount;
