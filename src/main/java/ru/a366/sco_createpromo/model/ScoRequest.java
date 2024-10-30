@@ -9,10 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 
 @Getter
@@ -190,12 +187,12 @@ public class ScoRequest {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         @JsonProperty("start_date")
         @NotNull
-        private ZonedDateTime startDate;
+        private OffsetDateTime startDate;
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         @JsonProperty("end_date")
         @NotNull
-        private ZonedDateTime endDate;
+        private OffsetDateTime endDate;
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
         @JsonProperty("start_time")

@@ -4,6 +4,8 @@ import ru.a366.sco_createpromo.model.RubblesRequest;
 import ru.a366.sco_createpromo.model.ScoRequest;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -169,11 +171,16 @@ public class PromotionMapper {
     }
 
     private static ScoRequest.TimeOption createTimeOption(RubblesRequest request) {
+        ZoneId moscowZone = ZoneId.of("Europe/Moscow");
         ScoRequest.TimeOption timeOption = new ScoRequest.TimeOption();
-        timeOption.setStartDate(request.getStartDate() != null ? request.getStartDate() : ZonedDateTime.now().plusDays(request.getDaysUntilStart()));
-        timeOption.setEndDate(request.getEndDate() != null ? request.getEndDate() : ZonedDateTime.now().plusDays(request.getDaysUntilEnd()));
-        timeOption.setStartTime(request.getStartTime() != null ? request.getStartTime() : null);
-        timeOption.setEndTime(request.getEndTime() != null ? request.getEndTime() : null);
+        OffsetDateTime startDate = request.getStartDate() != null ? request.getStartDate().toOffsetDateTime()
+                : ZonedDateTime.now(moscowZone).plusDays(request.getDaysUntilStart()).toOffsetDateTime();
+        timeOption.setStartDate(startDate.withHour(0).withMinute(0).withSecond(0).withNano(0));
+        OffsetDateTime endDate = request.getEndDate() != null ?
+                request.getEndDate().toOffsetDateTime() : ZonedDateTime.now(moscowZone).plusDays(request.getDaysUntilEnd()).toOffsetDateTime();
+        timeOption.setEndDate(endDate.withHour(0).withMinute(0).withSecond(0).withNano(0));
+        //timeOption.setStartTime(request.getStartTime() != null ? request.getStartTime() : null);
+        //timeOption.setEndTime(request.getEndTime() != null ? request.getEndTime() : null);
         if(request.getWeekdayAction() != null) {
             List<String> weekdayAction = new LinkedList<>();
             for(String action : request.getWeekdayAction()){
