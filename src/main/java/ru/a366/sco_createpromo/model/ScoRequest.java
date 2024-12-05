@@ -227,6 +227,7 @@ public class ScoRequest {
         private LocalDate dateEndSr;
     }
 
+    /*
     @JsonProperty("array_itm_ind1")
     private List<Long> arrayItmInd1;
 
@@ -238,6 +239,7 @@ public class ScoRequest {
 
     @JsonProperty("array_pos")
     private List<String> arrayPos;
+    */
 
     @JsonProperty("platforms")
     private String platforms;

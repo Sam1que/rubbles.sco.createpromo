@@ -48,7 +48,7 @@ public class PromotionMapper {
         scoRequest.setPromoDisc1(createPromoDiscountOne(rubblesRequest));
         scoRequest.setPromoDisc2(createPromoDiscountTwo(rubblesRequest));
         scoRequest.setPromoDisc3(createPromoDiscountThree(rubblesRequest));
-        scoRequest.setArrayPos(rubblesRequest.getArrayPos());
+        //scoRequest.setArrayPos(rubblesRequest.getArrayPos());
         scoRequest.setPlatforms("tt");
 
         return scoRequest;
