@@ -105,8 +105,8 @@ public class PromotionService {
                     }
                     else {
                         asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
-                                "Failed to create SCO promo",
-                                "Got error from SCO while creating promo: " + response.getErrorText());
+                                "Ошибка при создании акции SCO",
+                                "Ошибка от SCO при создании акции: " + response.getErrorText());
                         return ResponseEntity.badRequest()
                                 .body(ErrorHandler.ApiError.builder()
                                         .code("error")
@@ -128,8 +128,18 @@ public class PromotionService {
                                     .code("error")
                                     .desc("Error from SCO: "+ scoResponse.getErrorText())
                                     .build());
-                }
-                else {
+                } else if (e instanceof HttpClientErrorException && ((HttpClientErrorException) e).getStatusCode().is5xxServerError()) {
+                    asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
+                            "Ошибка при создании акции SCO",
+                            "Ошибка от SCO при создании акции: " + response.getErrorText());
+
+                    log.error("Attempt " + retryNum + ": Could not connect to url: " +
+                            url + "\nError: " + e.getMessage(), e);
+                    if (retryNum < RETRY_COUNT) {
+                        Thread.sleep(RETRY_TIMEOUT_SEC * 1000L);
+                    }
+                    retryNum++;
+                } else {
                     log.error("Attempt " + retryNum + ": Could not connect to url: " +
                             url + "\nError: " + e.getMessage(), e);
                     if (retryNum < RETRY_COUNT) {

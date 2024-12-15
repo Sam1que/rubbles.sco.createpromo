@@ -1,6 +1,7 @@
 package ru.a366.sco_createpromo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -115,12 +116,15 @@ public class ScoRequest {
     private TimeOption timeOpt;
 
     @JsonProperty("promo_disc1")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private PromoDiscountOne promoDisc1;
 
     @JsonProperty("promo_disc2")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private PromoDiscountTwo promoDisc2;
 
     @JsonProperty("promo_disc3")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private PromoDiscountThree promoDisc3;
 
     @Getter
