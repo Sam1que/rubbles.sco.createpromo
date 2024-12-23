@@ -106,7 +106,7 @@ public class PromotionService {
                     else {
                         asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
                                 "Ошибка при создании акции SCO",
-                                "Ошибка от SCO при создании акции: " + response.getErrorText());
+                                "Ошибка от SCO при создании акции '" + request.getPromoName() + "': " + response.getErrorText());
                         return ResponseEntity.badRequest()
                                 .body(ErrorHandler.ApiError.builder()
                                         .code("error")
@@ -121,6 +121,9 @@ public class PromotionService {
                     try {
                         scoResponse = objectMapper.readValue(((HttpClientErrorException) e).getResponseBodyAsString(), ScoResponse.class);
                     } catch (JsonProcessingException ex) {
+                        asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
+                                "Ошибка при создании акции SCO",
+                                "<p>Ошибка от SCO при создании акции '" + request.getPromoName() + "': получен некорректный ответ от SCO</p>");
                         throw new RuntimeException(ex);
                     }
                     return ResponseEntity.badRequest()
@@ -131,7 +134,7 @@ public class PromotionService {
                 } else if (e instanceof HttpClientErrorException && ((HttpClientErrorException) e).getStatusCode().is5xxServerError()) {
                     asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
                             "Ошибка при создании акции SCO",
-                            "Ошибка от SCO при создании акции: " + response.getErrorText());
+                            "<p>Ошибка от SCO при создании акции '" + request.getPromoName() + "': " + response.getErrorText() + "</p>");
 
                     log.error("Attempt " + retryNum + ": Could not connect to url: " +
                             url + "\nError: " + e.getMessage(), e);
@@ -151,6 +154,9 @@ public class PromotionService {
         } while (retryNum <= RETRY_COUNT);
 
         if (response == null) {
+            asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
+                    "Ошибка при создании акции SCO",
+                    "<p>Ошибка от SCO при создании акции '" + request.getPromoName() + "': не удалось получить корректный ответ от SCO.</p>");
             throw new RuntimeException("HTTP error was received from SmartCheckout");
         }
 
