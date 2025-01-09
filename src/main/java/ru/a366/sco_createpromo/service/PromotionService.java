@@ -106,7 +106,7 @@ public class PromotionService {
                     else {
                         asapSendKafka.send("SCO_CREATE_PROMO", "SmartCheckOut Promt", asapSender, asapRecipients,
                                 "Ошибка при создании акции SCO",
-                                "Ошибка от SCO при создании акции '" + request.getPromoName() + "': " + response.getErrorText());
+                                "<p>Ошибка от SCO при создании акции '" + request.getPromoName() + "': " + response.getErrorText() + "</p>");
                         return ResponseEntity.badRequest()
                                 .body(ErrorHandler.ApiError.builder()
                                         .code("error")

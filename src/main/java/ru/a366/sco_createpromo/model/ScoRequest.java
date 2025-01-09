@@ -47,95 +47,72 @@ public class ScoRequest {
     private String discountOwner;
 
     @JsonProperty("promo_explation")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String promoExplation;
 
     @JsonProperty("sum_online_order_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean sumOnlineOrderFlg;
 
     @JsonProperty("dis_online_order_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean disOnlineOrderFlg;
 
     @JsonProperty("sum_online_reserve_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean sumOnlineReserveFlg;
 
     @JsonProperty("dis_online_reserve_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean disOnlineReserveFlg;
 
     @JsonProperty("sum_online_ved_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean sumOnlineVedFlg;
 
     @JsonProperty("dis_online_ved_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean disOnlineVedFlg;
 
     @JsonProperty("old_dis_in_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean oldDisInFlg;
 
     @JsonProperty("fract_pac_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean fractPacFlg;
 
     @JsonProperty("discount_option")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String discountOption;
 
     @JsonProperty("min_item_count")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long minItemCount;
 
     @JsonProperty("item_count")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long itemCount;
 
     @JsonProperty("item_ind_count")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long itemIndCount;
 
     @JsonProperty("item_count_ind2")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long itemCountInd2;
 
     @JsonProperty("ind_option")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String indOption;
 
     @JsonProperty("discount_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String discountType;
 
     @JsonProperty("discount_value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long discountValue;
 
     @JsonProperty("prize_count")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long prizeCount;
 
     @JsonProperty("prize_max_count")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long prizeMaxCount;
 
     @JsonProperty("promo_online_order_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean promoOnlineOrderFlg;
 
     @JsonProperty("promo_online_reserve_flg")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean promoOnlineReserveFlg;
 
     @JsonProperty("srn")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private SRN srn;
 
     @JsonProperty("time_opt")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private TimeOption timeOpt;
 
     @JsonProperty("promo_disc1")
