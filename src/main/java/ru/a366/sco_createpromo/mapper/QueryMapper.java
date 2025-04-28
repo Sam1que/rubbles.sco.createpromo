@@ -5,12 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.a366.sco_createpromo.db.DbAdapter;
 import ru.a366.sco_createpromo.model.RubblesRequest;
 import ru.a366.sco_createpromo.model.ScoResponse;
-import ru.a366.sco_createpromo.model.query.*;
+import ru.a366.sco_createpromo.model.query.ItemGroupsQuery;
+import ru.a366.sco_createpromo.model.query.PosGroupsQuery;
+import ru.a366.sco_createpromo.model.query.Query;
+import ru.a366.sco_createpromo.model.query.RbPromoAcrmQuery;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
+
 @Slf4j
 public class QueryMapper {
 
@@ -41,7 +46,7 @@ public class QueryMapper {
                     .itemCount(request.getItemCount())
                     .itemIndCount(request.getItemIndCount())
                     .itemCountInd2(request.getItemCountInd2())
-                    .indOption(request.getIndOption()!=null ? request.getIndOption() : null)
+                    .indOption(request.getIndOption() != null ? request.getIndOption() : null)
                     .discountType(request.getDiscountType())
                     .discountValue(request.getDiscountValue())
                     .prizeCount(request.getPrizeCount())
@@ -66,8 +71,8 @@ public class QueryMapper {
                     .itemCount1(request.getItemCount1())
                     .itemCount2(request.getItemCount2())
                     .itemCount3(request.getItemCount3())
-                    .startDate(request.getStartDate())
-                    .endDate(request.getEndDate())
+                    .startDate(toMoscowTime(request.getStartDate()))
+                    .endDate(toMoscowTime(request.getEndDate()))
                     .startTime(request.getStartTime())
                     .endTime(request.getEndTime())
                     .weekdayAction(request.getWeekdayAction() != null ? String.join(", ", request.getWeekdayAction()) : null)
@@ -79,6 +84,7 @@ public class QueryMapper {
             throw new RuntimeException(e.getMessage());
         }
     }
+
     public static List<Query> toRbItemGroups(RubblesRequest request, ScoResponse response,
                                              Long itmGrId, Long intItemId) {
         List<Query> queries = new LinkedList<>();
@@ -94,7 +100,7 @@ public class QueryMapper {
     public static List<Query> toRbPosGroups(RubblesRequest request, ScoResponse response,
                                             Long posGrId, Long intItemId) {
         List<Query> queries = new LinkedList<>();
-        for(String pos: request.getArrayPos()) {
+        for (String pos : request.getArrayPos()) {
             PosGroupsQuery rbPosGroupQuery = new PosGroupsQuery();
             rbPosGroupQuery.setPosGrId(posGrId);
             rbPosGroupQuery.setPosId(Long.valueOf(pos));
@@ -115,7 +121,7 @@ public class QueryMapper {
     private static List<Query> getTypes(Long itmGrId, Long intItemId, Long promoId,
                                         List<Long> items, String type) {
         List<Query> queries = new LinkedList<>();
-        if(items != null && !items.isEmpty()) {
+        if (items != null && !items.isEmpty()) {
             for (Long item : items) {
                 ItemGroupsQuery rbItemGroupsQuery = new ItemGroupsQuery();
                 rbItemGroupsQuery.setItmGrId(itmGrId);
@@ -135,5 +141,19 @@ public class QueryMapper {
             }
         }
         return queries;
+    }
+
+    public static ZonedDateTime toMoscowTime(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
+        // Если зона не указана - считаем UTC
+        ZonedDateTime normalized = dateTime.getZone() == null
+                ? dateTime.withZoneSameLocal(ZoneId.of("UTC"))
+                : dateTime;
+
+        // Конвертируем в московское время (UTC+3)
+        return normalized.withZoneSameInstant(ZoneId.of("Europe/Moscow"));
     }
 }
