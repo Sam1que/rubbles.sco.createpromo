@@ -71,8 +71,8 @@ public class QueryMapper {
                     .itemCount1(request.getItemCount1())
                     .itemCount2(request.getItemCount2())
                     .itemCount3(request.getItemCount3())
-                    .startDate(toMoscowTime(request.getStartDate()))
-                    .endDate(toMoscowTime(request.getEndDate()))
+                    .startDate(toMoscowDateWithoutTime(request.getStartDate()))
+                    .endDate(toMoscowDateWithoutTime(request.getEndDate()))
                     .startTime(request.getStartTime())
                     .endTime(request.getEndTime())
                     .weekdayAction(request.getWeekdayAction() != null ? String.join(", ", request.getWeekdayAction()) : null)
@@ -143,7 +143,8 @@ public class QueryMapper {
         return queries;
     }
 
-    public static ZonedDateTime toMoscowTime(ZonedDateTime dateTime) {
+
+    public static ZonedDateTime toMoscowDateWithoutTime(ZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -153,7 +154,9 @@ public class QueryMapper {
                 ? dateTime.withZoneSameLocal(ZoneId.of("UTC"))
                 : dateTime;
 
-        // Конвертируем в московское время (UTC+3)
-        return normalized.withZoneSameInstant(ZoneId.of("Europe/Moscow"));
+        // Конвертируем в московское время (UTC+3) и обнуляем время
+        return normalized.withZoneSameInstant(ZoneId.of("Europe/Moscow"))
+                .toLocalDate()
+                .atStartOfDay(ZoneId.of("Europe/Moscow"));
     }
 }
